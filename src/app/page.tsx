@@ -10,6 +10,7 @@ import { ContactSection } from "@/componentes/contact-section"
 import { Footer } from "@/componentes/footer"
 import { StarryBackground } from "@/componentes/starry-background"
 import { InteractiveParticles } from "@/componentes/interactive-particles"
+import { AcademicSection } from "@/componentes/academic-section"
 
 export default function Portfolio() {
   return (
@@ -27,6 +28,7 @@ export default function Portfolio() {
       <main className="relative z-10">
         <HeroSection />
         <AboutSection />
+        <AcademicSection/>
         <SkillsSection />
         <TechStack />
         <ProjectsSection />

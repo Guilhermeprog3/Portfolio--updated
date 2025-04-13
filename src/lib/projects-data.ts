@@ -1,104 +1,95 @@
-export type ProjectCategory = "all" | "web" | "mobile" | "backend" | "design"
+export type ProjectCategory = "all" | "web" | "mobile" | "backend" | "design";
+import AnyRecipe from "../public/AnyRecipe.png";
+import Eccomerce from "../public/Eccomerce.png";
+import Food from "../public/Food.png";
+import PrototipoHidro from "../public/PrototipoHidro.png";
+import PrototipoTask from "../public/PrototipoTask.png";
+import TaskPage from "../public/TaskPage.png";
+import Taskapp from "../public/Taskapp.png";
 
 export type Project = {
-  title: string
-  description: string
-  tech: string[]
-  image: string
-  category: ProjectCategory[]
-  demoUrl?: string
-  githubUrl?: string
-  featured: boolean
-}
+  title: string;
+  description: string;
+  tech: string[];
+  image: string;
+  category: ProjectCategory[];
+  demoUrl?: string;
+  githubUrl?: string;
+  featured: boolean;
+};
 
 export const projectsData: Project[] = [
   {
-    title: "E-commerce App",
-    description: "Plataforma de e-commerce completa com pagamentos, carrinho e painel de administração.",
+    title: "App de Receitas Culinárias",
+    description: "Aplicativo completo para criação e compartilhamento de receitas. Inclui sistema de busca, categorização, favoritos e compartilhamento nas redes sociais.",
+    tech: ["React", "Node.js", "Express"],
+    image: Food.src, // Vinculei a imagem Food.png
+    category: ["web"],
+    demoUrl: "#",
+    featured: true,
+  },
+  {
+    title: "Gerenciador de Tarefas",
+    description: "Sistema completo para organização pessoal com autenticação de usuários, criação de projetos, tarefas com prazos e notificações em tempo real.",
+    tech: ["React", "Node.js", "Express"],
+    image: TaskPage.src, // Vinculei a imagem TaskPage.png
+    category: ["web"],
+    demoUrl: "#",
+    featured: true,
+  },
+  {
+    title: "Hidro Watch - Protótipo",
+    description: "Sistema de monitoramento de consumo de água com dashboard interativo, histórico de uso e alertas personalizáveis para economia de recursos.",
+    tech: ["React", "Node.js", "MongoDB"],
+    image: PrototipoHidro.src, // Vinculei a imagem PrototipoHidro.png
+    category: ["design", "web"],
+    demoUrl: "#",
+    featured: false,
+  },
+  {
+    title: "Protótipo - Criação de Receitas",
+    description: "Design de interface moderno para aplicativo culinário, com foco em usabilidade e experiência do usuário na criação e edição de receitas.",
+    tech: ["React", "Figma"],
+    image: AnyRecipe.src, // Vinculei a imagem AnyRecipe.png
+    category: ["design"],
+    demoUrl: "#",
+    featured: false,
+  },
+  {
+    title: "Protótipo - Gerenciador de Tarefas",
+    description: "Conceito visual para aplicativo de produtividade, explorando diferentes abordagens de organização e visualização de tarefas.",
+    tech: ["React", "Figma"],
+    image: PrototipoTask.src, // Vinculei a imagem PrototipoTask.png
+    category: ["design"],
+    demoUrl: "#",
+    featured: false,
+  },
+  {
+    title: "Plataforma E-commerce",
+    description: "Loja virtual completa com catálogo de produtos, carrinho de compras, checkout seguro e painel administrativo para gestão de pedidos.",
+    tech: ["React", "Node.js", "MongoDB"],
+    image: Eccomerce.src, // Vinculei a imagem Eccomerce.png
+    category: ["web", "backend"],
+    demoUrl: "#",
+    featured: true,
+  },
+  {
+    title: "Task-App (Aplicativo de Tarefas)",
+    description: "Solução robusta para gerenciamento de atividades com categorização, prazos, lembretes e sincronização em múltiplos dispositivos.",
+    tech: ["React", "Node.js", "Express"],
+    image: Taskapp.src, // Vinculei a imagem Taskapp.png
+    category: ["web"],
+    demoUrl: "#",
+    featured: false,
+  },
+  {
+    title: "App E-commerce",
+    description: "Plataforma completa de comércio eletrônico com integração de pagamentos, gestão de estoque e painel administrativo avançado.",
     tech: ["React", "Node.js", "MongoDB", "Stripe"],
-    image: "bg-gradient-to-br from-blue-600 to-purple-800",
+    image: "bg-gradient-to-br from-blue-600 to-purple-800", // Mantido o gradiente pois não há imagem específica
     category: ["web", "backend"],
     demoUrl: "https://ecommerce.example.com",
     githubUrl: "https://github.com/joaosilva/ecommerce",
     featured: true,
   },
-  {
-    title: "Sistema de Gestão",
-    description: "Sistema para gerenciamento de recursos empresariais com dashboard analítico.",
-    tech: ["TypeScript", "React", "PostgreSQL", "Chart.js"],
-    image: "bg-gradient-to-br from-purple-600 to-indigo-800",
-    category: ["web", "backend"],
-    demoUrl: "https://erp.example.com",
-    githubUrl: "https://github.com/joaosilva/erp-system",
-    featured: true,
-  },
-  {
-    title: "App de Finanças",
-    description: "Aplicativo para controle financeiro pessoal com gráficos e relatórios.",
-    tech: ["React Native", "Firebase", "Redux"],
-    image: "bg-gradient-to-br from-green-600 to-teal-800",
-    category: ["mobile"],
-    demoUrl: "https://finance.example.com",
-    githubUrl: "https://github.com/joaosilva/finance-app",
-    featured: false,
-  },
-  {
-    title: "Rede Social",
-    description: "Plataforma de rede social com feed personalizado e mensagens em tempo real.",
-    tech: ["Ruby on Rails", "React", "PostgreSQL", "WebSockets"],
-    image: "bg-gradient-to-br from-pink-600 to-red-800",
-    category: ["web", "backend"],
-    demoUrl: "https://social.example.com",
-    githubUrl: "https://github.com/joaosilva/social-network",
-    featured: true,
-  },
-  {
-    title: "Blog Tech",
-    description: "Blog sobre tecnologia com sistema de comentários e painel administrativo.",
-    tech: ["Next.js", "Tailwind CSS", "Prisma", "Vercel"],
-    image: "bg-gradient-to-br from-cyan-600 to-blue-800",
-    category: ["web", "design"],
-    demoUrl: "https://blog.example.com",
-    githubUrl: "https://github.com/joaosilva/tech-blog",
-    featured: false,
-  },
-  {
-    title: "API RESTful",
-    description: "API completa para integração de serviços com autenticação JWT.",
-    tech: ["Node.js", "Express", "MongoDB", "JWT"],
-    image: "bg-gradient-to-br from-yellow-600 to-orange-800",
-    category: ["backend"],
-    githubUrl: "https://github.com/joaosilva/rest-api",
-    featured: false,
-  },
-  {
-    title: "Aplicativo de Delivery",
-    description: "App para entrega de comida com rastreamento em tempo real.",
-    tech: ["Flutter", "Firebase", "Google Maps API"],
-    image: "bg-gradient-to-br from-red-600 to-orange-700",
-    category: ["mobile"],
-    demoUrl: "https://delivery.example.com",
-    githubUrl: "https://github.com/joaosilva/delivery-app",
-    featured: false,
-  },
-  {
-    title: "Dashboard Analytics",
-    description: "Painel de análise de dados com visualizações interativas.",
-    tech: ["Vue.js", "D3.js", "Express", "MongoDB"],
-    image: "bg-gradient-to-br from-blue-500 to-cyan-700",
-    category: ["web", "backend"],
-    demoUrl: "https://analytics.example.com",
-    githubUrl: "https://github.com/joaosilva/analytics-dashboard",
-    featured: false,
-  },
-  {
-    title: "Portfólio Pessoal",
-    description: "Site de portfólio com animações e design responsivo.",
-    tech: ["Next.js", "Framer Motion", "Tailwind CSS"],
-    image: "bg-gradient-to-br from-purple-500 to-pink-700",
-    category: ["web", "design"],
-    demoUrl: "https://portfolio.example.com",
-    githubUrl: "https://github.com/joaosilva/portfolio",
-    featured: false,
-  },
-]
+];
