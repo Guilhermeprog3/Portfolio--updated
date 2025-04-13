@@ -17,7 +17,7 @@ import { ProjectsPageHeader } from "@/componentes/projects-header"
 export default function ProjectsPage() {
   const [searchQuery, setSearchQuery] = useState("")
   const [activeCategory, setActiveCategory] = useState<ProjectCategory>("all")
-  const [hoveredProject, setHoveredProject] = useState<string | null>(null)
+  const [, setHoveredProject] = useState<string | null>(null)
   const [showScrollTop, setShowScrollTop] = useState(false)
 
   useEffect(() => {

@@ -1,6 +1,5 @@
 "use client"
 
-import { useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { Download, Mail } from "lucide-react"

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { Menu, X, ChevronDown, GraduationCap, Home, User, Code, Layers, FolderKanban, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -13,7 +13,7 @@ export function Header() {
   const [prevScrollPos, setPrevScrollPos] = useState(0)
   const [visible, setVisible] = useState(true)
 
-  const navItems = [
+  const navItems = useMemo(() => [
     { name: "Home", id: "home", icon: <Home className="w-4 h-4" /> },
     { name: "Sobre", id: "sobre", icon: <User className="w-4 h-4" /> },
     { name: "Formação", id: "formacao", icon: <GraduationCap className="w-4 h-4" /> },
@@ -21,7 +21,7 @@ export function Header() {
     { name: "Tecnologias", id: "tecnologias", icon: <Layers className="w-4 h-4" /> },
     { name: "Projetos", id: "projetos", icon: <FolderKanban className="w-4 h-4" /> },
     { name: "Contato", id: "contato", icon: <Mail className="w-4 h-4" /> },
-  ]
+  ], [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -104,7 +104,7 @@ export function Header() {
           <div className="flex flex-wrap justify-center gap-x-1 lg:gap-x-2">
             {navItems.map((item) => (
               <motion.a
-                key={item.name}
+                key={item.id}
                 href={`#${item.id}`}
                 onClick={(e) => {
                   e.preventDefault()
@@ -182,7 +182,7 @@ export function Header() {
             <div className="container mx-auto px-4 py-4 flex flex-col space-y-2">
               {navItems.map((item, index) => (
                 <motion.a
-                  key={item.name}
+                  key={item.id}
                   href={`#${item.id}`}
                   onClick={(e) => {
                     e.preventDefault()
