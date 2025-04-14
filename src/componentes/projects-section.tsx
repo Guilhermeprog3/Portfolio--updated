@@ -8,16 +8,13 @@ import { Button } from "@/components/ui/button"
 import { projectsData } from "@/lib/projects-data"
 
 export function ProjectsSection() {
-  // Background glow effects
   const glowPositions = ["top-1/4 right-1/4", "bottom-1/4 left-1/4", "top-3/4 left-1/3", "bottom-1/3 right-1/3"]
 
   return (
     <section id="projetos" className="py-20 relative overflow-hidden">
-      {/* Decorative elements */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
 
-      {/* Background glow effects */}
       {glowPositions.map((position, index) => (
         <div
           key={index}
