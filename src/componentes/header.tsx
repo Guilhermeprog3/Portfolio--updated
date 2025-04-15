@@ -13,15 +13,18 @@ export function Header() {
   const [prevScrollPos, setPrevScrollPos] = useState(0)
   const [visible, setVisible] = useState(true)
 
-  const navItems = useMemo(() => [
-    { name: "Home", id: "home", icon: <Home className="w-4 h-4" /> },
-    { name: "Sobre", id: "sobre", icon: <User className="w-4 h-4" /> },
-    { name: "Formação", id: "formacao", icon: <GraduationCap className="w-4 h-4" /> },
-    { name: "Habilidades", id: "habilidades", icon: <Code className="w-4 h-4" /> },
-    { name: "Tecnologias", id: "tecnologias", icon: <Layers className="w-4 h-4" /> },
-    { name: "Projetos", id: "projetos", icon: <FolderKanban className="w-4 h-4" /> },
-    { name: "Contato", id: "contato", icon: <Mail className="w-4 h-4" /> },
-  ], [])
+  const navItems = useMemo(
+    () => [
+      { name: "Home", id: "home", icon: <Home className="w-4 h-4" /> },
+      { name: "Sobre", id: "sobre", icon: <User className="w-4 h-4" /> },
+      { name: "Formação", id: "formacao", icon: <GraduationCap className="w-4 h-4" /> },
+      { name: "Habilidades", id: "habilidades", icon: <Code className="w-4 h-4" /> },
+      { name: "Tecnologias", id: "tecnologias", icon: <Layers className="w-4 h-4" /> },
+      { name: "Projetos", id: "projetos", icon: <FolderKanban className="w-4 h-4" /> },
+      { name: "Contato", id: "contato", icon: <Mail className="w-4 h-4" /> },
+    ],
+    [],
+  )
 
   useEffect(() => {
     const handleScroll = () => {
@@ -69,8 +72,24 @@ export function Header() {
   }
 
   const scrollToSection = (id: string) => {
-    setMobileMenuOpen(false)
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" })
+    const element = document.getElementById(id)
+    if (element) {
+      // Fecha o menu mobile
+      setMobileMenuOpen(false)
+
+      // Pequeno timeout para garantir que a animação de fechamento do menu não interfira
+      setTimeout(() => {
+        // Calcula a posição considerando o header fixo
+        const headerHeight = document.querySelector("header")?.clientHeight || 0
+        const elementPosition = element.getBoundingClientRect().top + window.scrollY
+        const offsetPosition = elementPosition - headerHeight - 20 // 20px de margem
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth",
+        })
+      }, 100) // Pequeno delay para garantir que o menu fechou
+    }
   }
 
   return (

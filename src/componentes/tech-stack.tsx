@@ -166,7 +166,7 @@ export function TechStack() {
             <motion.button
               key={category.name}
               onClick={() => setActiveCategory(category.name)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all cursor-pointer ${
                 activeCategory === category.name
                   ? `bg-gradient-to-r ${category.color} text-white shadow-lg shadow-${category.color.split(" ")[0]}/20`
                   : "bg-blue-950/30 hover:bg-blue-900/40 text-white/80 hover:text-white"
@@ -210,7 +210,7 @@ export function TechStack() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.05 }}
-                  className="relative group"
+                  className="relative group cursor-pointer"
                   onHoverStart={() => setHoveredTech(tech.name)}
                   onHoverEnd={() => setHoveredTech(null)}
                   whileHover={{ scale: 1.05, y: -5 }}

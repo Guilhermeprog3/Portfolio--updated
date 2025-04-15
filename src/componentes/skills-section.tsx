@@ -105,7 +105,7 @@ export function SkillsSection() {
       name: "Python",
       color: "from-blue-400 to-blue-600",
       icon: <FlaskConical className="w-5 h-5 sm:w-6 sm:h-6 text-blue-300" />,
-      level: 5,
+      level: 3,
       description: "Desenvolvimento de scripts, automações e aplicações com Python.",
     },
     {
@@ -168,7 +168,7 @@ export function SkillsSection() {
       name: "Next.js",
       color: "from-gray-500 to-gray-700",
       icon: <FileCode className="w-5 h-5 sm:w-6 sm:h-6 text-gray-300" />,
-      level: 5,
+      level: 4,
       description: "Framework React para aplicações SSR, SSG e rotas dinâmicas.",
     },
     {
@@ -182,7 +182,7 @@ export function SkillsSection() {
       name: "AdonisJS",
       color: "from-yellow-600 to-yellow-800",
       icon: <Server className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-500" />,
-      level: 5,
+      level: 4,
       description: "Framework Node.js completo para desenvolvimento web.",
     },
     {
@@ -196,7 +196,7 @@ export function SkillsSection() {
       name: "Supabase",
       color: "from-green-400 to-green-600",
       icon: <Key className="w-5 h-5 sm:w-6 sm:h-6 text-green-300" />,
-      level: 4,
+      level: 3,
       description: "Plataforma de backend como serviço com banco de dados PostgreSQL e autenticação.",
     },
   ]

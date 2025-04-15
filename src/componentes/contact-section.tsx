@@ -214,7 +214,7 @@ export function ContactSection() {
                 <Button
                   type="submit"
                   disabled={formStatus === "submitting" || formStatus === "success"}
-                  className={`w-full relative overflow-hidden group rounded-xl ${
+                  className={`w-full relative overflow-hidden group rounded-xl cursor-pointer ${
                     formStatus === "success"
                       ? "bg-green-600 hover:bg-green-700"
                       : formStatus === "error"
