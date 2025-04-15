@@ -1,14 +1,14 @@
 "use client"
 
-import type React from "react"
-
+import React from "react"
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { ArrowLeft, ArrowRight, ArrowUp, ExternalLink, Github, Code, Layers, Globe, Star, Search } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { projectsData } from "@/lib/projects-data"
-import type { ProjectCategory } from "@/lib/projects-data"
+import { Project, ProjectCategory } from "@/lib/types"
+import Image from "next/image"
 import { StarryBackground } from "@/componentes/starry-background"
 import { InteractiveParticles } from "@/componentes/interactive-particles"
 import { Footer } from "@/componentes/footer"
@@ -20,7 +20,7 @@ export default function ProjectsPage() {
   const [activeCategory, setActiveCategory] = useState<ProjectCategory>("all")
   const [, setHoveredProject] = useState<string | null>(null)
   const [showScrollTop, setShowScrollTop] = useState(false)
-  const [selectedProject, setSelectedProject] = useState<any | null>(null)
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -182,9 +182,11 @@ export default function ProjectsPage() {
                       {!project.image.startsWith("bg-gradient") ? (
                         <>
                           <div className="h-48 w-full overflow-hidden">
-                            <img
+                            <Image
                               src={project.image || "/placeholder.svg"}
                               alt={project.title}
+                              width={500}
+                              height={300}
                               className="w-full h-full object-cover object-top"
                             />
                           </div>

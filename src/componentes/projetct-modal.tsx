@@ -4,11 +4,13 @@ import { useState } from "react"
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
 import { X, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import Image from "next/image"
+import { Project } from "@/lib/types"
 
 interface ProjectModalProps {
   isOpen: boolean
   onClose: () => void
-  project: any
+  project: Project
 }
 
 export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
@@ -33,10 +35,13 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
         <div className="relative rounded-lg overflow-hidden">
           {!images[currentImageIndex].startsWith("bg-gradient") ? (
             <div className="aspect-auto max-h-[85vh] w-full relative">
-              <img
+              <Image
                 src={images[currentImageIndex] || "/placeholder.svg"}
                 alt={project.title}
+                width={800}
+                height={600}
                 className="w-full h-full object-contain"
+                priority
               />
             </div>
           ) : (

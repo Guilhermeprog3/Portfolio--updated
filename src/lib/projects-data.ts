@@ -8,17 +8,7 @@ import TaskPage from "../../public/TaskPage.png";
 import Taskapp from "../../public/Taskapp.png";
 import Eventos from "../../public/Eventos.png";
 import prototipo_recipes from "../../public/prototipo_recipes.png";
-
-export type Project = {
-  title: string;
-  description: string;
-  tech: string[];
-  image: string;
-  category: ProjectCategory[];
-  demoUrl?: string;
-  githubUrl?: string;
-  featured: boolean;
-};
+import { Project } from "./types";
 
 export const projectsData: Project[] = [
   {
