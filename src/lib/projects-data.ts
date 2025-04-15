@@ -1,11 +1,13 @@
 export type ProjectCategory = "all" | "web" | "mobile" | "backend" | "design";
-import AnyRecipe from "../public/AnyRecipe.png";
-import Eccomerce from "../public/Eccomerce.png";
-import Food from "../public/Food.png";
-import PrototipoHidro from "../public/PrototipoHidro.png";
-import PrototipoTask from "../public/PrototipoTask.png";
-import TaskPage from "../public/TaskPage.png";
-import Taskapp from "../public/Taskapp.png";
+import AnyRecipe from "../../public/AnyRecipe.png";
+import Eccomerce from "../../public/Eccomerce.png";
+import Food from "../../public/Food.png";
+import PrototipoHidro from "../../public/PrototipoHidro.png";
+import PrototipoTask from "../../public/PrototipoTask.png";
+import TaskPage from "../../public/TaskPage.png";
+import Taskapp from "../../public/Taskapp.png";
+import Eventos from "../../public/Eventos.png";
+import prototipo_recipes from "../../public/prototipo_recipes.png";
 
 export type Project = {
   title: string;
@@ -79,7 +81,7 @@ export const projectsData: Project[] = [
     title: "Protótipo - AnyRecipe",
     description: "Design de interface moderno para Site culinário, com foco em usabilidade e experiência do usuário na criação e edição de receitas.",
     tech: ["Figma"],
-    image: AnyRecipe.src,
+    image: prototipo_recipes.src,
     category: ["design"],
     featured: false,
   },
@@ -97,7 +99,7 @@ export const projectsData: Project[] = [
     title: "API de Gerenciamento de Eventos",
     description: "API desenvolvida para organização e gestão de eventos, permitindo o cadastro de usuários, criação de eventos, envio de convites e participação em eventos.",
     tech: ["NestJS","PostgreSQL"],
-    image: Taskapp.src,
+    image: Eventos.src,
     category: ["backend"],
     demoUrl: "https://event-manager-back-end.onrender.com/",
     githubUrl:"https://github.com/DeveloperCommunitty/event-manager-back-end",

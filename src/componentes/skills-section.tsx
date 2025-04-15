@@ -30,33 +30,26 @@ type Skill = {
   description: string
 }
 
-// Hook de media query integrado diretamente no componente
 function useMediaQuery(query: string): boolean {
   const [matches, setMatches] = useState(false)
 
   useEffect(() => {
-    // Verificar se estamos no navegador para evitar erros durante SSR
     if (typeof window !== "undefined") {
       const media = window.matchMedia(query)
 
-      // Atualizar o estado inicialmente
       setMatches(media.matches)
 
-      // Definir uma função de callback para lidar com mudanças
       const listener = (e: MediaQueryListEvent) => {
         setMatches(e.matches)
       }
 
-      // Adicionar o callback como um listener para mudanças na media query
       media.addEventListener("change", listener)
 
-      // Limpeza
       return () => {
         media.removeEventListener("change", listener)
       }
     }
 
-    // Valor padrão para SSR
     return () => {}
   }, [query])
 
@@ -68,7 +61,6 @@ export function SkillsSection() {
   const isMobile = useMediaQuery("(max-width: 768px)")
   const isSmallScreen = useMediaQuery("(max-width: 640px)")
 
-  // Reset active skill when screen size changes to prevent UI issues
   useEffect(() => {
     setActiveSkill(null)
   }, [isMobile, isSmallScreen])
@@ -94,6 +86,13 @@ export function SkillsSection() {
       icon: <ReactIcon className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-400" />,
       level: 4,
       description: "Criação de interfaces modernas e reativas com React e React Native.",
+    },
+    {
+      name: "React Query",
+      color: "from-red-500 to-purple-700",
+      icon: <GitBranch className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400" />,
+      level: 2,
+      description: "Gerenciamento de estado de dados com caching, sincronização e atualizações automáticas.",
     },
     {
       name: "Node.js",
@@ -226,17 +225,13 @@ export function SkillsSection() {
       </div>
     )
   }
-
-  // Background glow effects
   const glowPositions = ["top-1/4 left-1/4", "bottom-1/4 right-1/4", "top-3/4 right-1/3", "bottom-1/3 left-1/3"]
 
   return (
     <section id="habilidades" className="py-16 sm:py-20 md:py-24 relative overflow-hidden">
-      {/* Decorative elements */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
 
-      {/* Background glow effects */}
       {glowPositions.map((position, index) => (
         <div
           key={index}

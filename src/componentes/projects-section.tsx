@@ -113,7 +113,6 @@ export function ProjectsSection() {
                       </div>
                     )}
 
-                    {/* Featured badge */}
                     {project.featured && (
                       <div className="absolute top-3 right-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1 shadow-lg">
                         <Sparkles className="w-3 h-3" /> Destaque

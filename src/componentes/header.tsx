@@ -27,7 +27,6 @@ export function Header() {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY
 
-      // Handle header visibility on scroll
       const isScrolledDown = prevScrollPos < currentScrollPos
       const isScrolledUp = prevScrollPos > currentScrollPos
       const isAtTop = currentScrollPos < 10
@@ -40,14 +39,12 @@ export function Header() {
 
       setPrevScrollPos(currentScrollPos)
 
-      // Handle background change
       if (currentScrollPos > 10) {
         setScrolled(true)
       } else {
         setScrolled(false)
       }
 
-      // Handle active section
       for (const item of navItems) {
         const element = document.getElementById(item.id)
         if (!element) continue
