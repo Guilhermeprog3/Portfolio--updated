@@ -8,9 +8,11 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { projectsData } from "@/lib/projects-data"
 import { ProjectModal } from "@/componentes/projetct-modal"
+import Image from "next/image"
+import { Project } from "@/lib/types"
 
 export function ProjectsSection() {
-  const [selectedProject, setSelectedProject] = useState<any | null>(null)
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
   const glowPositions = ["top-1/4 right-1/4", "bottom-1/4 left-1/4", "top-3/4 left-1/3", "bottom-1/3 right-1/3"]
 
   return (
@@ -52,50 +54,33 @@ export function ProjectsSection() {
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projectsData.slice(0, 6).map((project, index) => (
-            <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-              viewport={{ once: true, margin: "-50px" }}
-              whileHover={{ y: -8 }}
-              className="group"
-              onClick={() => setSelectedProject(project)}
-            >
-              <Card className="bg-gradient-to-br from-blue-950/20 to-purple-950/20 border border-purple-900/50 backdrop-blur-sm overflow-hidden h-full transition-all duration-300 group-hover:shadow-[0_10px_25px_rgba(139,92,246,0.2)] rounded-xl cursor-pointer">
-                <CardContent className="p-0">
-                  <div className={`relative ${project.image.startsWith("bg-gradient") ? project.image : ""}`}>
-                    {!project.image.startsWith("bg-gradient") ? (
-                      <>
-                        <div className="h-52 w-full overflow-hidden">
-                          <img
-                            src={project.image || "/placeholder.svg"}
-                            alt={project.title}
-                            className="w-full h-full object-cover object-top"
-                          />
-                        </div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/20 group-hover:from-black/90 group-hover:to-black/40 transition-all duration-300 flex items-end justify-start p-4">
-                          <div className="flex flex-wrap gap-2">
-                            {project.tech.slice(0, 3).map((tech) => (
-                              <span
-                                key={tech}
-                                className="text-xs bg-purple-900/60 text-purple-200 px-2 py-1 rounded-full"
-                              >
-                                {tech}
-                              </span>
-                            ))}
-                            {project.tech.length > 3 && (
-                              <span className="text-xs bg-blue-900/60 text-blue-200 px-2 py-1 rounded-full">
-                                +{project.tech.length - 3}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      </>
-                    ) : (
-                      <div className="h-52 w-full flex items-center justify-center p-4">
-                        <div className="flex flex-wrap gap-2 justify-center">
+        {projectsData.slice(0, 6).map((project, index) => (
+          <motion.div
+            key={project.title}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: index * 0.1 }}
+            viewport={{ once: true, margin: "-50px" }}
+            whileHover={{ y: -8 }}
+            className="group"
+            onClick={() => setSelectedProject(project)}
+          >
+            <Card className="bg-gradient-to-br from-blue-950/20 to-purple-950/20 border border-purple-900/50 backdrop-blur-sm overflow-hidden h-full transition-all duration-300 group-hover:shadow-[0_10px_25px_rgba(139,92,246,0.2)] rounded-xl cursor-pointer">
+              <CardContent className="p-0">
+                <div className={`relative ${project.image.startsWith("bg-gradient") ? project.image : ""}`}>
+                  {!project.image.startsWith("bg-gradient") ? (
+                    <>
+                      <div className="h-52 w-full overflow-hidden">
+                        <Image
+                          src={project.image || "/placeholder.svg"}
+                          alt={project.title}
+                          width={500}
+                          height={300}
+                          className="w-full h-full object-cover object-top"
+                        />
+                      </div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/20 group-hover:from-black/90 group-hover:to-black/40 transition-all duration-300 flex items-end justify-start p-4">
+                        <div className="flex flex-wrap gap-2">
                           {project.tech.slice(0, 3).map((tech) => (
                             <span
                               key={tech}
@@ -111,58 +96,77 @@ export function ProjectsSection() {
                           )}
                         </div>
                       </div>
-                    )}
-
-                    {project.featured && (
-                      <div className="absolute top-3 right-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1 shadow-lg">
-                        <Sparkles className="w-3 h-3" /> Destaque
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2 text-white group-hover:text-purple-200 transition-colors">
-                      {project.title}
-                    </h3>
-                    <p className="text-blue-100 mb-4 text-sm line-clamp-3">{project.description}</p>
-                    <div className="flex justify-between items-center">
-                      <div className="flex gap-3">
-                        {project.demoUrl && project.demoUrl !== "#" && (
-                          <a
-                            href={project.demoUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-xs bg-purple-600/80 hover:bg-purple-600 text-white flex items-center gap-1 px-3 py-1 rounded-full transition-colors"
-                            onClick={(e) => e.stopPropagation()}
+                    </>
+                  ) : (
+                    <div className="h-52 w-full flex items-center justify-center p-4">
+                      <div className="flex flex-wrap gap-2 justify-center">
+                        {project.tech.slice(0, 3).map((tech) => (
+                          <span
+                            key={tech}
+                            className="text-xs bg-purple-900/60 text-purple-200 px-2 py-1 rounded-full"
                           >
-                            <ExternalLink className="w-3 h-3" /> Demo
-                          </a>
-                        )}
-                        {project.githubUrl && (
-                          <a
-                            href={project.githubUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-xs bg-blue-800/80 hover:bg-blue-800 text-white flex items-center gap-1 px-3 py-1 rounded-full transition-colors"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <Github className="w-3 h-3" /> Código
-                          </a>
+                            {tech}
+                          </span>
+                        ))}
+                        {project.tech.length > 3 && (
+                          <span className="text-xs bg-blue-900/60 text-blue-200 px-2 py-1 rounded-full">
+                            +{project.tech.length - 3}
+                          </span>
                         )}
                       </div>
-                      <motion.div
-                        animate={{ x: 0 }}
-                        whileHover={{ x: 5 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 10 }}
-                      >
-                        <ArrowRight className="w-4 h-4 text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity" />
-                      </motion.div>
                     </div>
+                  )}
+
+                  {project.featured && (
+                    <div className="absolute top-3 right-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white text-xs px-2 py-1 rounded-full flex items-center gap-1 shadow-lg">
+                      <Sparkles className="w-3 h-3" /> Destaque
+                    </div>
+                  )}
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2 text-white group-hover:text-purple-200 transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-blue-100 mb-4 text-sm line-clamp-3">{project.description}</p>
+                  <div className="flex justify-between items-center">
+                    <div className="flex gap-3">
+                      {project.demoUrl && project.demoUrl !== "#" && (
+                        <a
+                          href={project.demoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs bg-purple-600/80 hover:bg-purple-600 text-white flex items-center gap-1 px-3 py-1 rounded-full transition-colors"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <ExternalLink className="w-3 h-3" /> Demo
+                        </a>
+                      )}
+                      {project.githubUrl && (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs bg-blue-800/80 hover:bg-blue-800 text-white flex items-center gap-1 px-3 py-1 rounded-full transition-colors"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <Github className="w-3 h-3" /> Código
+                        </a>
+                      )}
+                    </div>
+                    <motion.div
+                      animate={{ x: 0 }}
+                      whileHover={{ x: 5 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 10 }}
+                    >
+                      <ArrowRight className="w-4 h-4 text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </motion.div>
                   </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        ))}
+      </div>
 
         <motion.div
           className="mt-12 text-center"

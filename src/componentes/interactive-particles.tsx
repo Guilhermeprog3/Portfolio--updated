@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useCallback } from "react"
 
 interface Particle {
   x: number
@@ -90,7 +90,7 @@ export function InteractiveParticles() {
     }
   }
 
-  const animate = (ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => {
+  const animate = useCallback((ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
     particlesRef.current.forEach((p) => {
@@ -100,7 +100,7 @@ export function InteractiveParticles() {
 
     connectParticles(ctx)
     animationFrameIdRef.current = requestAnimationFrame(() => animate(ctx, canvas))
-  }
+  }, [])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -132,7 +132,7 @@ export function InteractiveParticles() {
         cancelAnimationFrame(animationFrameIdRef.current)
       }
     }
-  }, [])
+  }, [animate])
 
   return <canvas ref={canvasRef} className="fixed inset-0 z-10 pointer-events-none" />
 }
