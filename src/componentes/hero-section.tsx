@@ -31,10 +31,14 @@ export function HeroSection() {
           className="flex justify-center space-x-4"
         >
           <Button className="bg-purple-700 hover:bg-purple-800">
-            <a href="#projetos" className="flex items-center gap-2">
-              <Download className="w-4 h-4" /> DOWNLOAD CV
-            </a>
-          </Button>
+  <a 
+    href="../public/meucurriculo.pdf"
+    download="Guilherme-Curriculo.pdf" 
+    className="flex items-center gap-2"
+  >
+    <Download className="w-4 h-4" /> DOWNLOAD CV
+  </a>
+</Button>
           <Button
             variant="outline"
             className="border-purple-700 text-purple-400 hover:bg-purple-900/30"

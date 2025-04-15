@@ -13,12 +13,14 @@ import { StarryBackground } from "@/componentes/starry-background"
 import { InteractiveParticles } from "@/componentes/interactive-particles"
 import { Footer } from "@/componentes/footer"
 import { ProjectsPageHeader } from "@/componentes/projects-header"
+import { ProjectModal } from "@/componentes/projetct-modal"
 
 export default function ProjectsPage() {
   const [searchQuery, setSearchQuery] = useState("")
   const [activeCategory, setActiveCategory] = useState<ProjectCategory>("all")
   const [, setHoveredProject] = useState<string | null>(null)
   const [showScrollTop, setShowScrollTop] = useState(false)
+  const [selectedProject, setSelectedProject] = useState<any | null>(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -164,7 +166,6 @@ export default function ProjectsPage() {
             </div>
           )}
 
-          {/* Lista filtrada dos projetos */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {filteredProjects.map((project, index) => (
               <motion.div
@@ -172,17 +173,21 @@ export default function ProjectsPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
-                className="group"
+                className="group cursor-pointer"
+                onClick={() => setSelectedProject(project)}
               >
                 <Card className="bg-blue-950/20 border border-purple-900/50 backdrop-blur-sm overflow-hidden h-full transition-all duration-300 group-hover:shadow-[0_0_15px_rgba(139,92,246,0.2)] hover:translate-y-[-5px]">
                   <CardContent className="p-0">
-                    <div className={`h-48 relative ${project.image.startsWith("bg-gradient") ? project.image : ""}`}>
+                    <div className={`relative ${project.image.startsWith("bg-gradient") ? project.image : ""}`}>
                       {!project.image.startsWith("bg-gradient") ? (
                         <>
-                          <div
-                            className="absolute inset-0 bg-cover bg-center"
-                            style={{ backgroundImage: `url(${project.image})` }}
-                          />
+                          <div className="h-48 w-full overflow-hidden">
+                            <img
+                              src={project.image || "/placeholder.svg"}
+                              alt={project.title}
+                              className="w-full h-full object-cover object-top"
+                            />
+                          </div>
                           <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent group-hover:from-black/90 transition-all duration-300">
                             <div className="absolute bottom-0 left-0 p-4 flex flex-wrap gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                               {project.tech.slice(0, 3).map((tech) => (
@@ -202,7 +207,7 @@ export default function ProjectsPage() {
                           </div>
                         </>
                       ) : (
-                        <div className="absolute inset-0 flex items-center justify-center p-4">
+                        <div className="h-48 w-full flex items-center justify-center p-4">
                           <div className="flex flex-wrap gap-2 justify-center">
                             {project.tech.slice(0, 3).map((tech) => (
                               <span
@@ -222,11 +227,11 @@ export default function ProjectsPage() {
                       )}
                     </div>
 
-                    <div className="p-6">
+                    <div className="p-5">
                       <h3 className="text-xl font-bold mb-2 text-purple-300 group-hover:text-purple-200 transition-colors">
                         {project.title}
                       </h3>
-                      <p className="text-blue-100 mb-4 text-sm line-clamp-3">{project.description}</p>
+                      <p className="text-blue-100 mb-4 text-sm ">{project.description}</p>
                       <div className="flex justify-between items-center">
                         <div className="flex gap-3">
                           {project.demoUrl && (
@@ -235,6 +240,7 @@ export default function ProjectsPage() {
                               target="_blank"
                               rel="noopener noreferrer"
                               className="text-xs bg-purple-600/80 hover:bg-purple-600 text-white flex items-center gap-1 px-2 py-1 rounded-full transition-colors"
+                              onClick={(e) => e.stopPropagation()}
                             >
                               <ExternalLink className="w-3 h-3" />
                               Demo
@@ -246,6 +252,7 @@ export default function ProjectsPage() {
                               target="_blank"
                               rel="noopener noreferrer"
                               className="text-xs bg-blue-800/80 hover:bg-blue-800 text-white flex items-center gap-1 px-2 py-1 rounded-full transition-colors"
+                              onClick={(e) => e.stopPropagation()}
                             >
                               <Github className="w-3 h-3" />
                               Código
@@ -298,6 +305,10 @@ export default function ProjectsPage() {
         >
           <ArrowUp className="w-5 h-5" />
         </motion.button>
+      )}
+
+      {selectedProject && (
+        <ProjectModal isOpen={!!selectedProject} onClose={() => setSelectedProject(null)} project={selectedProject} />
       )}
     </div>
   )

@@ -137,7 +137,7 @@ export function Header() {
           <motion.a
             whileHover={{ scale: 1.05, backgroundColor: "rgba(30, 64, 175, 0.6)" }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
-            href="https://portifolio-taupe-two-68.vercel.app/"
+            href="https://guilhermeriosdevv1.vercel.app/"
             target="_blank"
             rel="noopener noreferrer"
             className="px-4 py-1.5 bg-blue-900/50 text-white rounded-full border border-blue-700/50 text-sm transition-all whitespace-nowrap flex items-center gap-1 shadow-sm shadow-blue-900/30"

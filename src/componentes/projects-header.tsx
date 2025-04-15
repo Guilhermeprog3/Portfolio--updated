@@ -23,7 +23,7 @@ export function ProjectsPageHeader() {
           </Button>
 
           <a
-            href="https://v1.joaosilva.dev"
+            href="https://guilhermeriosdevv1.vercel.app/"
             target="_blank"
             rel="noopener noreferrer"
             className="px-3 py-1 bg-blue-900/50 hover:bg-blue-800/60 text-white rounded-md border border-blue-700/50 text-sm transition-colors"

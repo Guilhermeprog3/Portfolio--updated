@@ -1,13 +1,16 @@
 "use client"
 
+import { useState } from "react"
 import { motion } from "framer-motion"
 import { ArrowRight, ExternalLink, Github, FolderKanban, Sparkles } from "lucide-react"
 import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { projectsData } from "@/lib/projects-data"
+import { ProjectModal } from "@/componentes/projetct-modal"
 
 export function ProjectsSection() {
+  const [selectedProject, setSelectedProject] = useState<any | null>(null)
   const glowPositions = ["top-1/4 right-1/4", "bottom-1/4 left-1/4", "top-3/4 left-1/3", "bottom-1/3 right-1/3"]
 
   return (
@@ -58,16 +61,20 @@ export function ProjectsSection() {
               viewport={{ once: true, margin: "-50px" }}
               whileHover={{ y: -8 }}
               className="group"
+              onClick={() => setSelectedProject(project)}
             >
-              <Card className="bg-gradient-to-br from-blue-950/20 to-purple-950/20 border border-purple-900/50 backdrop-blur-sm overflow-hidden h-full transition-all duration-300 group-hover:shadow-[0_10px_25px_rgba(139,92,246,0.2)] rounded-xl">
+              <Card className="bg-gradient-to-br from-blue-950/20 to-purple-950/20 border border-purple-900/50 backdrop-blur-sm overflow-hidden h-full transition-all duration-300 group-hover:shadow-[0_10px_25px_rgba(139,92,246,0.2)] rounded-xl cursor-pointer">
                 <CardContent className="p-0">
-                  <div className={`h-48 relative ${project.image.startsWith("bg-gradient") ? project.image : ""}`}>
+                  <div className={`relative ${project.image.startsWith("bg-gradient") ? project.image : ""}`}>
                     {!project.image.startsWith("bg-gradient") ? (
                       <>
-                        <div
-                          className="absolute inset-0 bg-cover bg-center"
-                          style={{ backgroundImage: `url(${project.image})` }}
-                        />
+                        <div className="h-52 w-full overflow-hidden">
+                          <img
+                            src={project.image || "/placeholder.svg"}
+                            alt={project.title}
+                            className="w-full h-full object-cover object-top"
+                          />
+                        </div>
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/20 group-hover:from-black/90 group-hover:to-black/40 transition-all duration-300 flex items-end justify-start p-4">
                           <div className="flex flex-wrap gap-2">
                             {project.tech.slice(0, 3).map((tech) => (
@@ -87,7 +94,7 @@ export function ProjectsSection() {
                         </div>
                       </>
                     ) : (
-                      <div className="absolute inset-0 flex items-center justify-center p-4">
+                      <div className="h-52 w-full flex items-center justify-center p-4">
                         <div className="flex flex-wrap gap-2 justify-center">
                           {project.tech.slice(0, 3).map((tech) => (
                             <span
@@ -117,7 +124,7 @@ export function ProjectsSection() {
                     <h3 className="text-xl font-bold mb-2 text-white group-hover:text-purple-200 transition-colors">
                       {project.title}
                     </h3>
-                    <p className="text-blue-100 mb-4 text-sm line-clamp-2">{project.description}</p>
+                    <p className="text-blue-100 mb-4 text-sm line-clamp-3">{project.description}</p>
                     <div className="flex justify-between items-center">
                       <div className="flex gap-3">
                         {project.demoUrl && project.demoUrl !== "#" && (
@@ -126,6 +133,7 @@ export function ProjectsSection() {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-xs bg-purple-600/80 hover:bg-purple-600 text-white flex items-center gap-1 px-3 py-1 rounded-full transition-colors"
+                            onClick={(e) => e.stopPropagation()}
                           >
                             <ExternalLink className="w-3 h-3" /> Demo
                           </a>
@@ -136,6 +144,7 @@ export function ProjectsSection() {
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-xs bg-blue-800/80 hover:bg-blue-800 text-white flex items-center gap-1 px-3 py-1 rounded-full transition-colors"
+                            onClick={(e) => e.stopPropagation()}
                           >
                             <Github className="w-3 h-3" /> Código
                           </a>
@@ -173,6 +182,10 @@ export function ProjectsSection() {
           </Button>
         </motion.div>
       </div>
+
+      {selectedProject && (
+        <ProjectModal isOpen={!!selectedProject} onClose={() => setSelectedProject(null)} project={selectedProject} />
+      )}
     </section>
   )
 }
