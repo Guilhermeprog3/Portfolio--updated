@@ -102,6 +102,27 @@ export function SkillsSection() {
       description: "Desenvolvimento de APIs RESTful e aplicações server-side com Node.js.",
     },
     {
+      name: "Jest",
+      color: "from-red-600 to-purple-800",
+      icon: <FlaskConical className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400" />,
+      level: 2,
+      description: "Framework de testes para JavaScript com suporte a snapshots e cobertura de código.",
+    },
+    {
+      name: "React Testing Library",
+      color: "from-red-500 to-orange-700",
+      icon: <FileCode className="w-5 h-5 sm:w-6 sm:h-6 text-orange-400" />,
+      level: 3,
+      description: "Biblioteca para testar componentes React de forma a simular o comportamento do usuário.",
+    },
+    {
+      name: "Zod",
+      color: "from-purple-500 to-blue-700",
+      icon: <Key className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" />,
+      level: 4,
+      description: "Biblioteca de validação TypeScript-first com tipagem estática segura.",
+    },
+    {
       name: "Python",
       color: "from-blue-400 to-blue-600",
       icon: <FlaskConical className="w-5 h-5 sm:w-6 sm:h-6 text-blue-300" />,
