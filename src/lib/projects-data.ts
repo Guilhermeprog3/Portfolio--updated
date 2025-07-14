@@ -3,6 +3,7 @@ import AnyRecipe from "../../public/AnyRecipe.png";
 import Eccomerce from "../../public/Eccomerce.png";
 import Food from "../../public/Food.png";
 import PrototipoHidro from "../../public/PrototipoHidro.png";
+import Hidro from "../../public/Hidro-watch.png";
 import PrototipoTask from "../../public/PrototipoTask.png";
 import TaskPage from "../../public/TaskPage.png";
 import Taskapp from "../../public/Taskapp.png";
@@ -26,7 +27,7 @@ export const projectsData: Project[] = [
     title: "Hidro Watch",
     description: "Aplicação mobile para monitoramento da qualidade da água, permitindo o acompanhamento de dados em tempo real e a geração de relatórios.",
     tech: ["React Native", "Expo", "TypeScript", "Node.js", "PostgreSQL"],
-    image: PrototipoHidro.src,
+    image: Hidro.src,
     category: ["mobile", "backend"],
     demoUrl: "#",
     githubUrl: "#",
