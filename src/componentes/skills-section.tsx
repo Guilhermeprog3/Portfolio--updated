@@ -123,6 +123,20 @@ export function SkillsSection() {
       description: "Biblioteca de validação TypeScript-first com tipagem estática segura.",
     },
     {
+        name: "n8n",
+        color: "from-orange-500 to-red-700",
+        icon: <GitBranch className="w-5 h-5 sm:w-6 sm:h-6 text-red-400" />,
+        level: 3,
+        description: "Automação de fluxos de trabalho e integração de serviços com a plataforma n8n.",
+    },
+    {
+        name: "Stripe",
+        color: "from-indigo-500 to-purple-700",
+        icon: <Key className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400" />,
+        level: 3,
+        description: "Integração de pagamentos online seguros com a API da Stripe.",
+    },
+    {
       name: "Python",
       color: "from-blue-400 to-blue-600",
       icon: <FlaskConical className="w-5 h-5 sm:w-6 sm:h-6 text-blue-300" />,

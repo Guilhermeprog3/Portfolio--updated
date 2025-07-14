@@ -1,8 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { Moon, Code, User } from "lucide-react"
+import { Code, User } from "lucide-react"
 import { motion } from "framer-motion"
+import Image from "next/image";
+import ProfileImage from "../../public/Perfil.jpeg";
 
 export function AboutSection() {
   const [isHovering, setIsHovering] = useState(false)
@@ -47,26 +49,7 @@ export function AboutSection() {
             >
               <div className="w-64 h-64 rounded-full bg-gradient-to-br from-blue-500 via-purple-500 to-blue-700 p-1 shadow-lg shadow-purple-500/20">
                 <div className="w-full h-full rounded-full bg-black flex items-center justify-center overflow-hidden relative">
-                  <motion.div
-                    animate={{
-                      rotate: isHovering ? 360 : 0,
-                      scale: isHovering ? 1.1 : 1,
-                    }}
-                    transition={{ duration: 5, ease: "linear", repeat: isHovering ? Number.POSITIVE_INFINITY : 0 }}
-                  >
-                    <Moon className="w-32 h-32 text-purple-400" />
-                  </motion.div>
-
-                  <motion.div
-                    className="absolute w-full h-full"
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 10, ease: "linear", repeat: Number.POSITIVE_INFINITY }}
-                  >
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-blue-400 rounded-full"></div>
-                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-purple-400 rounded-full"></div>
-                    <div className="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-blue-400 rounded-full"></div>
-                    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 bg-purple-400 rounded-full"></div>
-                  </motion.div>
+                  <Image src={ProfileImage} alt="Guilherme Silva Rios" width={256} height={256} className="rounded-full object-cover" />
                 </div>
               </div>
             </motion.div>

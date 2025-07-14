@@ -8,9 +8,40 @@ import TaskPage from "../../public/TaskPage.png";
 import Taskapp from "../../public/Taskapp.png";
 import Eventos from "../../public/Eventos.png";
 import prototipo_recipes from "../../public/prototipo_recipes.png";
+import Juriszap from "../../public/juriszap.png";
+import Zelus from "../../public/zelus.png";
+import Hidrowatch from "../../public/Hidro-watch.png";
 import { Project } from "./types";
 
 export const projectsData: Project[] = [
+  {
+    title: "Juriszap",
+    description: "SaaS inovador com uma IA de assistência para estudantes de direito, otimizando o aprendizado e a preparação para a carreira jurídica.",
+    tech: ["React", "Next.js", "Tailwind CSS", "Node.js", "PostgreSQL"],
+    image: Juriszap.src,
+    category: ["web", "backend"],
+    demoUrl: "#",
+    githubUrl: "#",
+    featured: true,
+  },
+  {
+    title: "Zelus",
+    description: "Plataforma para denúncias públicas, permitindo que cidadãos reportem problemas como buracos em vias, auxiliando na gestão urbana.",
+    tech: ["React", "TypeScript", "Node.js", "Express", "PostgreSQL"],
+    image: Zelus.src,
+    category: ["web", "backend"],
+    demoUrl: "#",
+    githubUrl: "#",
+    featured: true,
+  },
+  {
+    title: "Hidro Watch",
+    description: "Aplicação mobile para monitoramento da qualidade da água, permitindo o acompanhamento de dados em tempo real e a geração de relatórios.",
+    tech: ["React Native", "Expo", "TypeScript", "Node.js", "PostgreSQL"],
+    image: Hidrowatch.src,
+    category: ["mobile", "backend"],
+    featured: true,
+  },
   {
     title: "Food Share",
     description: "Plataforma web de doação de alimentos conectando doadores e vulneráveis. Inclui sistema de agendamento de coletas, cadastro de alimentos disponiveis para doação, rastreamento de doações e histórico de contribuições.",
@@ -19,7 +50,7 @@ export const projectsData: Project[] = [
     category: ["web"],
     demoUrl: "https://food-share-ochre.vercel.app/",
     githubUrl: "https://github.com/Guilhermeprog3/Food-Share",
-    featured: true,
+    featured: false,
   },
   {
     title: "Hidro Watch - Protótipo",
@@ -27,7 +58,7 @@ export const projectsData: Project[] = [
     tech: ["Figma"],
     image: PrototipoHidro.src,
     category: ["design"],
-    featured: true,
+    featured: false,
   },
   {
     title: "AnyRecipe",
