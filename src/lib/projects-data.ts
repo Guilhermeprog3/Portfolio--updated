@@ -25,16 +25,6 @@ export const projectsData: Project[] = [
     featured: true,
   },
   {
-    title: "Zelus",
-    description: "Plataforma para denúncias públicas, permitindo que cidadãos reportem problemas como buracos em vias, auxiliando na gestão urbana.",
-    tech: ["React", "TypeScript", "Node.js", "Express", "PostgreSQL"],
-    image: Zelus.src,
-    category: ["web", "backend"],
-    demoUrl: "#",
-    githubUrl: "#",
-    featured: true,
-  },
-  {
     title: "Hidro Watch",
     description: "Aplicação mobile para monitoramento da qualidade da água, permitindo o acompanhamento de dados em tempo real e a geração de relatórios.",
     tech: ["React Native", "Expo", "TypeScript", "Node.js", "PostgreSQL"],
