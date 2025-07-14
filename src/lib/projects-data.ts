@@ -8,7 +8,7 @@ import TaskPage from "../../public/TaskPage.png";
 import Taskapp from "../../public/Taskapp.png";
 import Eventos from "../../public/Eventos.png";
 import prototipo_recipes from "../../public/prototipo_recipes.png";
-import Juriszap from "../../public/captura_de_telas.png";
+import Juriszap from "../../public/juriszap.png";
 import { Project } from "./types";
 
 export const projectsData: Project[] = [

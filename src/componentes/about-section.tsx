@@ -3,7 +3,7 @@
 import { Code, User } from "lucide-react"
 import { motion } from "framer-motion"
 import Image from "next/image";
-import ProfileImage from "../../public/profile.png";
+import ProfileImage from "../../public/Perfil.jpeg";
 
 export function AboutSection() {
   return (
