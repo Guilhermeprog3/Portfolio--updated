@@ -57,7 +57,6 @@ export function AboutSection() {
                     <Moon className="w-32 h-32 text-purple-400" />
                   </motion.div>
 
-                  {/* Orbit effect */}
                   <motion.div
                     className="absolute w-full h-full"
                     animate={{ rotate: 360 }}
