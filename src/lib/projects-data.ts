@@ -8,9 +8,7 @@ import TaskPage from "../../public/TaskPage.png";
 import Taskapp from "../../public/Taskapp.png";
 import Eventos from "../../public/Eventos.png";
 import prototipo_recipes from "../../public/prototipo_recipes.png";
-import Juriszap from "../../public/juriszap.png";
-import Zelus from "../../public/zelus.png";
-import Hidrowatch from "../../public/Hidro-watch.png";
+import Juriszap from "../../public/captura_de_telas.png";
 import { Project } from "./types";
 
 export const projectsData: Project[] = [
@@ -28,8 +26,10 @@ export const projectsData: Project[] = [
     title: "Hidro Watch",
     description: "Aplicação mobile para monitoramento da qualidade da água, permitindo o acompanhamento de dados em tempo real e a geração de relatórios.",
     tech: ["React Native", "Expo", "TypeScript", "Node.js", "PostgreSQL"],
-    image: Hidrowatch.src,
+    image: PrototipoHidro.src,
     category: ["mobile", "backend"],
+    demoUrl: "#",
+    githubUrl: "#",
     featured: true,
   },
   {
@@ -116,5 +116,4 @@ export const projectsData: Project[] = [
     githubUrl:"https://github.com/DeveloperCommunitty/event-manager-back-end",
     featured: false,
   },
-  
 ];

@@ -1,14 +1,11 @@
 "use client"
 
-import { useState } from "react"
 import { Code, User } from "lucide-react"
 import { motion } from "framer-motion"
 import Image from "next/image";
-import ProfileImage from "../../public/Perfil.jpeg";
+import ProfileImage from "../../public/profile.png";
 
 export function AboutSection() {
-  const [isHovering, setIsHovering] = useState(false)
-
   return (
     <section id="sobre" className="py-24 relative overflow-hidden">
       {/* Decorative elements */}
@@ -44,8 +41,6 @@ export function AboutSection() {
               className="w-full md:w-1/3 flex justify-center"
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300, damping: 10 }}
-              onHoverStart={() => setIsHovering(true)}
-              onHoverEnd={() => setIsHovering(false)}
             >
               <div className="w-64 h-64 rounded-full bg-gradient-to-br from-blue-500 via-purple-500 to-blue-700 p-1 shadow-lg shadow-purple-500/20">
                 <div className="w-full h-full rounded-full bg-black flex items-center justify-center overflow-hidden relative">
