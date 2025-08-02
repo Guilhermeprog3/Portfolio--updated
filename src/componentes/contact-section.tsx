@@ -331,7 +331,7 @@ export function ContactSection() {
                   </motion.a>
 
                   <motion.a
-                    href="www.linkedin.com/in/guilherme-s-rios-dev"
+                    href="https://www.linkedin.com/in/guilherme-s-rios-dev"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group relative"
