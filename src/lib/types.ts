@@ -1,4 +1,3 @@
-// lib/types.ts
 export type ProjectCategory = "all" | "web" | "mobile" | "backend" | "design";
 
 export interface Project {
@@ -11,4 +10,5 @@ export interface Project {
   githubUrl?: string;
   image: string;
   images?: string[];
+  functionalities?: string[];
 }
