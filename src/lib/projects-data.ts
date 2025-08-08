@@ -11,7 +11,7 @@ import Eventos from "../../public/Eventos.png";
 import prototipo_recipes from "../../public/prototipo_recipes.png";
 import Juriszap from "../../public/juriszap.png";
 import Juriszap2 from "../../public/juriszap (2).png";
-import Zelus from "../../public/Zelus.png";
+// import Zelus from "../../public/Zelus.png";
 
 export const projectsData: Project[] = [
   {
@@ -21,8 +21,7 @@ export const projectsData: Project[] = [
     image: Juriszap.src,
     images: [Juriszap.src, Juriszap2.src],
     category: ["web", "backend"],
-    demoUrl: "#",
-    githubUrl: "#",
+    demoUrl: "https://juriszap.com.br",
     featured: true,
     functionalities: [
       "Assistente de IA integrado ao WhatsApp para dúvidas jurídicas.",
@@ -37,10 +36,8 @@ export const projectsData: Project[] = [
     description: "Aplicação mobile para monitoramento da qualidade da água, permitindo o acompanhamento de dados em tempo real e a geração de relatórios.",
     tech: ["React Native", "Expo", "TypeScript", "Node.js", "PostgreSQL"],
     image: Hidro.src,
-    images: [Hidro.src, PrototipoHidro.src],
+    images: [Hidro.src,],
     category: ["mobile", "backend"],
-    demoUrl: "#",
-    githubUrl: "#",
     featured: true,
     functionalities: [
         "Visualização de dados de sensores em tempo real (pH, Turbidez, TDS, etc.).",
@@ -67,22 +64,22 @@ export const projectsData: Project[] = [
         "Paginação para visualização de grandes volumes de dados.",
     ],
   },
-  {
-    title: "Zelus - Gestão Participativa",
-    description: "Plataforma de gestão que conecta a comunidade local com os departamentos públicos, permitindo o registro e acompanhamento de reclamações e demandas da cidade.",
-    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Node.js", "AdonisJS"],
-    image: Zelus.src,
-    images: [Zelus.src],
-    category: ["web", "backend"],
-    githubUrl: "https://github.com/Guilhermeprog3/Zelus-FrontEnd",
-    functionalities: [
-      "Dashboard administrativo para visualização de métricas.",
-      "Abertura de reclamações pelos cidadãos com geolocalização.",
-      "Acompanhamento do status das reclamações (Pendente, Em Andamento, Resolvida).",
-      "Gerenciamento de usuários, departamentos e tipos de reclamação.",
-      "Painel com ranking de reclamações mais denunciadas.",
-    ],
-  },
+  // {
+  //   title: "Zelus - Gestão Participativa",
+  //   description: "Plataforma de gestão que conecta a comunidade local com os departamentos públicos, permitindo o registro e acompanhamento de reclamações e demandas da cidade.",
+  //   tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Node.js", "AdonisJS"],
+  //   image: Zelus.src,
+  //   images: [Zelus.src],
+  //   category: ["web", "backend"],
+  //   githubUrl: "https://github.com/Guilhermeprog3/Zelus-FrontEnd",
+  //   functionalities: [
+  //     "Dashboard administrativo para visualização de métricas.",
+  //     "Abertura de reclamações pelos cidadãos com geolocalização.",
+  //     "Acompanhamento do status das reclamações (Pendente, Em Andamento, Resolvida).",
+  //     "Gerenciamento de usuários, departamentos e tipos de reclamação.",
+  //     "Painel com ranking de reclamações mais denunciadas.",
+  //   ],
+  // },
   {
     title: "Hidro Watch - Protótipo",
     description: "Design de interface moderno para aplicativo mobile de monitoramento de qualidade de água, com foco em usabilidade e experiência do usuário no gerenciamento de dispositivos voltados a medição da qualidade da água.",
@@ -105,7 +102,6 @@ export const projectsData: Project[] = [
     image: AnyRecipe.src,
     images: [AnyRecipe.src, prototipo_recipes.src],
     category: ["web"],
-    demoUrl: "#",
     githubUrl:"https://github.com/LPeter-nm/recipe-front-end",
     functionalities: [
       "Criação, edição e exclusão de receitas.",
@@ -120,7 +116,7 @@ export const projectsData: Project[] = [
     description: "Sistema completo para organização pessoal com autenticação de usuários, criação de tarefas, pastas de tarefas e tarefas com prazos.",
     tech: ["React", "Material UI", "ReactQuery"],
     image: TaskPage.src,
-    images: [TaskPage.src, PrototipoTask.src],
+    images: [TaskPage.src],
     category: ["web"],
     demoUrl: "https://todo-list-front-dev.netlify.app/",
     githubUrl:"https://github.com/DeveloperCommunitty/to-do-list_font-end",

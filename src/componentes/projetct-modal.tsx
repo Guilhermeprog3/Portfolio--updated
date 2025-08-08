@@ -31,6 +31,7 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
     if (isAnimating) return
     setIsAnimating(true)
     setCurrentImageIndex(newIndex)
+    // Duração da animação de fade
     setTimeout(() => setIsAnimating(false), 500)
   }
   
@@ -44,13 +45,12 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      {/* --- MUDANÇA PRINCIPAL: Layout vertical e largura ajustada --- */}
       <DialogContent 
-        className="max-w-3xl w-[95vw] h-[90vh] bg-gray-900/50 backdrop-blur-xl border border-purple-800/40 rounded-2xl p-0 flex flex-col shadow-2xl shadow-purple-900/20 overflow-hidden"
+        className="max-w-2xl w-[95vw] h-[90vh] bg-gray-900/50 backdrop-blur-xl border border-purple-800/40 rounded-2xl p-0 flex flex-col shadow-2xl shadow-purple-900/20 overflow-hidden"
       >
         <DialogTitle className="sr-only">{project.title}</DialogTitle>
 
-        {/* --- Coluna da Imagem (AGORA EM CIMA) --- */}
+        {/* --- Seção da Imagem (com transição aprimorada) --- */}
         <div className="w-full h-[40%] md:h-[45%] relative overflow-hidden rounded-t-2xl flex-shrink-0 group">
           {images.map((src, index) => (
             <Image
@@ -105,13 +105,12 @@ export function ProjectModal({ isOpen, onClose, project }: ProjectModalProps) {
           )}
         </div>
 
-        {/* --- Seção de Detalhes (AGORA EMBAIXO E ROLÁVEL) --- */}
+        {/* --- Seção de Detalhes (com estilo refinado) --- */}
         <div className="w-full flex-1 flex flex-col p-6 md:p-8 overflow-y-auto relative scrollbar-thin scrollbar-track-transparent scrollbar-thumb-purple-800/50 hover:scrollbar-thumb-purple-700">
           <Button
             variant="ghost"
             size="icon"
             onClick={onClose}
-            // Este botão agora está posicionado em relação a esta seção de detalhes
             className="absolute top-4 right-4 bg-black/30 hover:bg-black/60 text-gray-300 hover:text-white rounded-full z-50 transition-colors"
             aria-label="Fechar modal"
           >
