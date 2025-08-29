@@ -12,7 +12,9 @@ import prototipo_recipes from "../../public/prototipo_recipes.png";
 import Juriszap from "../../public/juriszap.png";
 import Juriszap2 from "../../public/juriszap (2).png";
 // import Zelus from "../../public/Zelus.png";
-
+import detalhes from "../../public/detalhes.png";
+import empresa from "../../public/empresa.png"
+import SEI from "../../public/SEI (1).png"
 export const projectsData: Project[] = [
   {
     title: "Juriszap",
@@ -29,6 +31,23 @@ export const projectsData: Project[] = [
       "Exercícios interativos para fixação de conteúdo.",
       "Sistema de planos e assinaturas com checkout seguro (Stripe).",
       "Autenticação de usuários e gerenciamento de contas.",
+    ],
+  },
+  {
+    title: "Portal do Sistema Eletrônico de Informações (SEI)",
+    description: "Plataforma desenvolvida durante estágio na Agência de Tecnologia (ATI) de Timon para centralizar informações e facilitar o uso do SEI, promovendo mais transparência e agilidade na administração pública.",
+    tech: ["WordPress", "Elementor","Typescript", "Nestjs"],
+    image: SEI.src,
+    images: [SEI.src],
+    category: ["web"],
+    demoUrl: "https://portalsei.timon.ma.gov.br/",
+    featured: true,
+    functionalities: [
+      "Centralização de informações e manuais sobre o sistema SEI.",
+      "Design responsivo para garantir acessibilidade em múltiplos dispositivos.",
+      "Estrutura visual moderna para facilitar a navegação do usuário.",
+      "Base para futura integração de serviços e links diretos do sistema.",
+      "Contribuição para a transformação digital e modernização do município.",
     ],
   },
   {
