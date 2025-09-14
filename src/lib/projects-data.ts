@@ -12,8 +12,8 @@ import prototipo_recipes from "../../public/prototipo_recipes.png";
 import Juriszap from "../../public/juriszap.png";
 import Juriszap2 from "../../public/juriszap (2).png";
 // import Zelus from "../../public/Zelus.png";
-import detalhes from "../../public/detalhes.png";
-import empresa from "../../public/empresa.png"
+// import detalhes from "../../public/detalhes.png";
+// import empresa from "../../public/empresa.png"
 import SEI from "../../public/SEI (1).png"
 import homecare from "../../public/homecare.png"
 export const projectsData: Project[] = [
