@@ -15,6 +15,7 @@ import Juriszap2 from "../../public/juriszap (2).png";
 import detalhes from "../../public/detalhes.png";
 import empresa from "../../public/empresa.png"
 import SEI from "../../public/SEI (1).png"
+import homecare from "../../public/homecare.png"
 export const projectsData: Project[] = [
   {
     title: "Juriszap",
@@ -48,6 +49,23 @@ export const projectsData: Project[] = [
       "Estrutura visual moderna para facilitar a navegação do usuário.",
       "Base para futura integração de serviços e links diretos do sistema.",
       "Contribuição para a transformação digital e modernização do município.",
+    ],
+  },
+  {
+    title: "Landing Page - The Home Care",
+    description: "Landing page desenvolvida para a The Home Care, uma plataforma que conecta profissionais de enfermagem a famílias. O foco foi criar uma identidade visual que transmitisse segurança e profissionalismo.",
+    tech: ["React", "TypeScript", "Next-js", "Tailwind CSS"],
+    image: homecare.src,
+    images: [homecare.src],
+    category: ["web"],
+    demoUrl: "https://www.thehomecare.site/",
+    featured: true,
+    functionalities: [
+      "Design profissional e acolhedor para transmitir confiança.",
+      "Apresentação clara da missão e dos valores da equipe.",
+      "Interface totalmente responsiva para uma ótima experiência em todos os dispositivos.",
+      "Seção dedicada para apresentar os profissionais da plataforma.",
+      "Call-to-actions estratégicos para facilitar o contato do usuário.",
     ],
   },
   {
