@@ -88,6 +88,13 @@ export function SkillsSection() {
       description: "Criação de interfaces modernas e reativas com React e React Native.",
     },
     {
+      name: "Vue.js",
+      color: "from-green-400 to-green-600",
+      icon: <ReactIcon className="w-5 h-5 sm:w-6 sm:h-6 text-green-400" />,
+      level: 3,
+      description: "Desenvolvimento de interfaces de usuário reativas e progressivas com o framework Vue.js.",
+    },
+    {
       name: "React Query",
       color: "from-red-500 to-purple-700",
       icon: <GitBranch className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400" />,
@@ -123,18 +130,18 @@ export function SkillsSection() {
       description: "Biblioteca de validação TypeScript-first com tipagem estática segura.",
     },
     {
-        name: "n8n",
-        color: "from-orange-500 to-red-700",
-        icon: <GitBranch className="w-5 h-5 sm:w-6 sm:h-6 text-red-400" />,
-        level: 3,
-        description: "Automação de fluxos de trabalho e integração de serviços com a plataforma n8n.",
+      name: "n8n",
+      color: "from-orange-500 to-red-700",
+      icon: <GitBranch className="w-5 h-5 sm:w-6 sm:h-6 text-red-400" />,
+      level: 3,
+      description: "Automação de fluxos de trabalho e integração de serviços com a plataforma n8n.",
     },
     {
-        name: "Stripe",
-        color: "from-indigo-500 to-purple-700",
-        icon: <Key className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400" />,
-        level: 3,
-        description: "Integração de pagamentos online seguros com a API da Stripe.",
+      name: "Stripe",
+      color: "from-indigo-500 to-purple-700",
+      icon: <Key className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400" />,
+      level: 3,
+      description: "Integração de pagamentos online seguros com a API da Stripe.",
     },
     {
       name: "Python",
@@ -142,6 +149,13 @@ export function SkillsSection() {
       icon: <FlaskConical className="w-5 h-5 sm:w-6 sm:h-6 text-blue-300" />,
       level: 3,
       description: "Desenvolvimento de scripts, automações e aplicações com Python.",
+    },
+    {
+      name: "FastAPI",
+      color: "from-teal-500 to-teal-700",
+      icon: <Server className="w-5 h-5 sm:w-6 sm:h-6 text-teal-400" />,
+      level: 3,
+      description: "Criação de APIs de alta performance em Python com tipagem moderna.",
     },
     {
       name: "Ruby",
@@ -177,6 +191,13 @@ export function SkillsSection() {
       icon: <Wind className="w-5 h-5 sm:w-6 sm:h-6 text-teal-400" />,
       level: 5,
       description: "Desenvolvimento rápido com o framework utility-first Tailwind CSS.",
+    },
+    {
+      name: "WordPress",
+      color: "from-blue-400 to-blue-600",
+      icon: <FileCode className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" />,
+      level: 3,
+      description: "Desenvolvimento e customização de sites e sistemas de conteúdo (CMS).",
     },
     {
       name: "PostgreSQL",
@@ -233,6 +254,13 @@ export function SkillsSection() {
       icon: <Key className="w-5 h-5 sm:w-6 sm:h-6 text-green-300" />,
       level: 3,
       description: "Plataforma de backend como serviço com banco de dados PostgreSQL e autenticação.",
+    },
+    {
+      name: "Firebase",
+      color: "from-yellow-500 to-orange-600",
+      icon: <Database className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-400" />,
+      level: 3,
+      description: "Plataforma de desenvolvimento com Realtime Database, Authentication e Hosting."
     },
   ]
 
