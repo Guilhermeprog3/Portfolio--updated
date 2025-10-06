@@ -11,9 +11,12 @@ import Eventos from "../../public/Eventos.png";
 import prototipo_recipes from "../../public/prototipo_recipes.png";
 import Juriszap from "../../public/juriszap.png";
 import Juriszap2 from "../../public/juriszap (2).png";
+import todoFast from "../../public/todo-fast.png"
 // import Zelus from "../../public/Zelus.png";
 // import detalhes from "../../public/detalhes.png";
 // import empresa from "../../public/empresa.png"
+import todoVueHome from "../../public/todo-vue-home.png"
+import todo_vue_login from "../../public/todo-vue-login.png"
 import SEI from "../../public/SEI (1).png"
 import homecare from "../../public/homecare.png"
 export const projectsData: Project[] = [
@@ -33,6 +36,40 @@ export const projectsData: Project[] = [
       "Sistema de planos e assinaturas com checkout seguro (Stripe).",
       "Autenticação de usuários e gerenciamento de contas.",
     ],
+  },
+ {
+      title: "To-Do List com Vue.js",
+      description: "Aplicação web para gerenciamento de tarefas, permitindo que os usuários se cadastrem, façam login e organizem suas atividades diárias de forma simples e eficiente.",
+      tech: ["Vue.js", "Axios", "Tailwind CSS"],
+      image: todoVueHome.src,
+      images: [todoVueHome.src, todo_vue_login.src],
+      githubUrl:"https://github.com/Guilhermeprog3/Todo-Vue-Front",
+      category: ["web"],
+      demoUrl: "https://todo-vue-front-end.vercel.app/",
+      functionalities: [
+          "Autenticação de usuários com registro e login.",
+          "Criação e edição de tarefas com definição de prazos.",
+          "Marcação de tarefas como concluídas e status automático de 'vencida'.",
+          "Interface limpa e responsiva para fácil gerenciamento.",
+          "Consumo de API REST para persistência dos dados.",
+      ],
+  },
+   {
+      title: "API de To-Do List com FastAPI",
+      description: "API RESTful construída com Python e FastAPI para dar suporte à aplicação To-Do List. Gerencia a lógica de negócios, autenticação de usuários e operações de tarefas.",
+      tech: ["Python", "FastAPI", "Swagger", "CORS"],
+      image: todoFast.src,
+      images: [todoFast.src],
+      githubUrl:"https://github.com/Guilhermeprog3/Todo-Vue-Back",
+      category: ["backend"],
+      demoUrl: "https://todo-vue-back-api.onrender.com/docs",
+      functionalities: [
+          "Endpoints para registro e login de usuários com autenticação JWT.",
+          "Operações CRUD completas para gerenciamento de tarefas.",
+          "Documentação interativa da API gerada automaticamente pelo Swagger UI.",
+          "Configuração de CORS para permitir requisições de diferentes origens.",
+          "Validação de dados de entrada para garantir a integridade.",
+      ],
   },
   {
     title: "Portal do Sistema Eletrônico de Informações (SEI)",

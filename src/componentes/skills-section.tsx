@@ -20,6 +20,7 @@ import {
   FlaskConical,
   Key,
   Sparkles,
+  Code,
 } from "lucide-react"
 
 type Skill = {
@@ -91,7 +92,7 @@ export function SkillsSection() {
       name: "Vue.js",
       color: "from-green-400 to-green-600",
       icon: <ReactIcon className="w-5 h-5 sm:w-6 sm:h-6 text-green-400" />,
-      level: 3,
+      level: 2,
       description: "Desenvolvimento de interfaces de usuário reativas e progressivas com o framework Vue.js.",
     },
     {
@@ -154,7 +155,7 @@ export function SkillsSection() {
       name: "FastAPI",
       color: "from-teal-500 to-teal-700",
       icon: <Server className="w-5 h-5 sm:w-6 sm:h-6 text-teal-400" />,
-      level: 3,
+      level: 2,
       description: "Criação de APIs de alta performance em Python com tipagem moderna.",
     },
     {
@@ -261,6 +262,34 @@ export function SkillsSection() {
       icon: <Database className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-400" />,
       level: 3,
       description: "Plataforma de desenvolvimento com Realtime Database, Authentication e Hosting."
+    },
+    {
+      name: "CORS",
+      color: "from-red-500 to-red-700",
+      icon: <Server className="w-5 h-5 sm:w-6 sm:h-6 text-red-400" />,
+      level: 4,
+      description: "Configuração de Cross-Origin Resource Sharing para segurança de APIs.",
+    },
+    {
+      name: "Axios",
+      color: "from-purple-500 to-purple-700",
+      icon: <FileJson className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400" />,
+      level: 5,
+      description: "Cliente HTTP baseado em Promises para o navegador e node.js.",
+    },
+    {
+      name: "Meta API",
+      color: "from-blue-600 to-blue-800",
+      icon: <Key className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" />,
+      level: 3,
+      description: "Integração com as APIs da Meta para automação e marketing.",
+    },
+    {
+      name: "C#",
+      color: "from-blue-800 to-blue-900",
+      icon: <Code className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" />,
+      level: 1,
+      description: "Conhecimento básico em desenvolvimento de software com C#.",
     },
   ]
 
