@@ -14,7 +14,8 @@ import Juriszap2 from "../../public/juriszap (2).png";
 import todoFast from "../../public/todo-fast.png"
 // import Zelus from "../../public/Zelus.png";
 // import detalhes from "../../public/detalhes.png";
-// import empresa from "../../public/empresa.png"
+import empresa from "../../public/empresa.png"
+import passageiro from "../../public/passageiro.png"
 import todoVueHome from "../../public/todo-vue-home.png"
 import todo_vue_login from "../../public/todo-vue-login.png"
 import SEI from "../../public/SEI (1).png"
@@ -119,6 +120,23 @@ export const projectsData: Project[] = [
         "Geração de gráficos e relatórios semanais/mensais.",
         "Sistema de alertas para parâmetros fora do padrão de qualidade.",
         "Histórico de medições por dispositivo.",
+    ],
+  },
+  {
+    title: "Timon Buz - Aplicativo Mobile",
+    description: "Aplicativo móvel para auxiliar os cidadãos de Timon (MA) no uso do transporte público, conectando passageiros e empresas de ônibus em uma única plataforma.",
+    tech: ["React Native", "Expo", "TypeScript", "React Navigation", "Zod", "Supabase"],
+    image: passageiro.src,
+    images: [passageiro.src, empresa.src],
+    category: ["mobile", "backend"],
+    githubUrl: "https://github.com/Guilhermeprog3/Timon-Buz",
+    featured: true,
+    functionalities: [
+        "Consulta de linhas, itinerários e horários.",
+        "Painel de gerenciamento para empresas cadastrarem suas rotas e viagens.",
+        "Sistema de busca inteligente por linha ou empresa.",
+        "Funcionalidade para favoritar linhas mais utilizadas.",
+        "Autenticação segura para passageiros e administradores.",
     ],
   },
   {
