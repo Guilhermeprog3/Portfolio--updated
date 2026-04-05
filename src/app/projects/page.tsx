@@ -3,8 +3,8 @@
 import React, { useRef, useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
-  ArrowLeft, ArrowRight, ArrowUp, ExternalLink, Github,
-  Code, Layers, Globe, Star, Search, X, Target,
+  ArrowLeft, ArrowUp, ExternalLink, Github,
+  Code, Layers, Globe, Star, Search, Target,
 } from "lucide-react"
 import { projectsData } from "@/lib/projects-data"
 import { Project, ProjectCategory } from "@/lib/types"

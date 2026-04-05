@@ -189,12 +189,10 @@ function StarField() {
 type GalaxyCanvasProps = {
   g: GalaxyDef
   active: boolean
-  canvasW: number
-  canvasH: number
   onClick: () => void
 }
 
-function GalaxyCanvas({ g, active, canvasW, canvasH, onClick }: GalaxyCanvasProps) {
+function GalaxyCanvas({ g, active, onClick }: GalaxyCanvasProps) {
   const ref = useRef<HTMLCanvasElement>(null)
   const tRef = useRef(0)
   const idRef = useRef<number>(0)
@@ -408,8 +406,6 @@ export function TechStack() {
               <GalaxyCanvas
                 g={g}
                 active={active === g.id}
-                canvasW={0}
-                canvasH={0}
                 onClick={() => setActive(prev => prev === g.id ? null : g.id)}
               />
             </motion.div>
