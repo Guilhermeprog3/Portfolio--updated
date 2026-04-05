@@ -1,8 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
+import { useState, useRef, useEffect } from "react"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import {
@@ -22,14 +21,56 @@ import { motion } from "framer-motion"
 
 type FormStatus = "idle" | "submitting" | "success" | "error"
 
+function StarField() {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+    let animId: number
+    const stars: { x: number; y: number; r: number; o: number; speed: number }[] = []
+    const resize = () => {
+      canvas.width = canvas.offsetWidth
+      canvas.height = canvas.offsetHeight
+      stars.length = 0
+      for (let i = 0; i < 130; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 1.2 + 0.2,
+          o: Math.random(),
+          speed: Math.random() * 0.004 + 0.001,
+        })
+      }
+    }
+    resize()
+    window.addEventListener("resize", resize)
+    let t = 0
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      t++
+      stars.forEach((s) => {
+        const opacity = 0.12 + 0.5 * Math.abs(Math.sin(t * s.speed + s.o * 10))
+        ctx.beginPath()
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(180,190,255,${opacity})`
+        ctx.fill()
+      })
+      animId = requestAnimationFrame(draw)
+    }
+    draw()
+    return () => {
+      cancelAnimationFrame(animId)
+      window.removeEventListener("resize", resize)
+    }
+  }, [])
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
+}
+
 export function ContactSection() {
   const [formStatus, setFormStatus] = useState<FormStatus>("idle")
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  })
+  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -38,76 +79,58 @@ export function ContactSection() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-
     if (!formData.name || !formData.email || !formData.subject || !formData.message) {
       setFormStatus("error")
       setTimeout(() => setFormStatus("idle"), 3000)
       return
     }
-
     setFormStatus("submitting")
-
     const { name, email, subject, message } = formData
-    const emailBody = `
-      ========================
-      CONTATO VIA PORTFÓLIO
-      ========================
-      
-      📅 Data: ${new Date().toLocaleDateString("pt-BR")}
-      ⏰ Hora: ${new Date().toLocaleTimeString("pt-BR")}
-      
-      👤 Remetente:
-      Nome: ${name}
-      Email: ${email}
-      
-      📌 Assunto:
-      ${subject}
-      
-      ✉️ Mensagem:
-      =========================
-      ${message}
-      =========================
-      
-      Atenciosamente,
-      ${name}
-    `
-      .replace(/\n/g, "%0D%0A")
-      .trim()
-
+    const emailBody = `========================\nCONTATO VIA PORTFÓLIO\n========================\n\n📅 Data: ${new Date().toLocaleDateString("pt-BR")}\n⏰ Hora: ${new Date().toLocaleTimeString("pt-BR")}\n\n👤 Remetente:\nNome: ${name}\nEmail: ${email}\n\n📌 Assunto:\n${subject}\n\n✉️ Mensagem:\n=========================\n${message}\n=========================\n\nAtenciosamente,\n${name}`
+      .replace(/\n/g, "%0D%0A").trim()
     setTimeout(() => {
       window.location.href = `mailto:guilhermeriosprog@gmail.com?subject=${encodeURIComponent(`[Portfólio] ${subject}`)}&body=${emailBody}`
       setFormStatus("success")
-
       setTimeout(() => {
         setFormStatus("idle")
-        setFormData({
-          name: "",
-          email: "",
-          subject: "",
-          message: "",
-        })
+        setFormData({ name: "", email: "", subject: "", message: "" })
       }, 3000)
     }, 800)
   }
 
-  // Background glow effects
-  const glowPositions = ["top-1/4 left-1/4", "bottom-1/4 right-1/4", "top-3/4 right-1/3", "bottom-1/3 left-1/3"]
+  const inputClass = "rounded-lg text-white placeholder:text-slate-600 transition-all duration-200 focus:ring-1"
+  const inputStyle = {
+    background: "rgba(255,255,255,0.03)",
+    border: "1px solid rgba(99,102,241,0.2)",
+    outline: "none",
+  }
+
+  const socialLinks = [
+    { href: "https://github.com/guilhermeprog3", icon: <Github className="w-5 h-5 text-white" />, label: "GitHub" },
+    { href: "https://www.linkedin.com/in/guilherme-s-rios-dev", icon: <Linkedin className="w-5 h-5 text-white" />, label: "LinkedIn" },
+    { href: "https://instagram.com/guilherme_rios_03", icon: <Instagram className="w-5 h-5 text-white" />, label: "Instagram" },
+    { href: "https://wa.me/5599984869491", icon: <FaWhatsapp className="w-5 h-5 text-white" />, label: "WhatsApp" },
+  ]
 
   return (
-    <section id="contato" className="py-20 relative overflow-hidden">
-      {/* Decorative elements */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
+    <section
+      id="contato"
+      className="py-20 relative overflow-hidden"
+      style={{ background: "#050816" }}
+    >
+      <StarField />
 
-      {/* Background glow effects */}
-      {glowPositions.map((position, index) => (
-        <div
-          key={index}
-          className={`absolute ${position} w-64 h-64 rounded-full blur-3xl opacity-20 ${
-            index % 2 === 0 ? "bg-blue-500" : "bg-purple-500"
-          }`}
-        ></div>
-      ))}
+      {/* Border lines */}
+      <div className="absolute top-0 left-0 right-0 h-px"
+        style={{ background: "linear-gradient(90deg,transparent,rgba(139,92,246,0.4),transparent)" }} />
+      <div className="absolute bottom-0 left-0 right-0 h-px"
+        style={{ background: "linear-gradient(90deg,transparent,rgba(99,102,241,0.4),transparent)" }} />
+
+      {/* Ambient globs */}
+      <div className="absolute top-1/4 left-1/4 w-72 h-72 pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(99,102,241,0.07) 0%, transparent 70%)", filter: "blur(40px)", borderRadius: "50%" }} />
+      <div className="absolute bottom-1/4 right-1/4 w-72 h-72 pointer-events-none"
+        style={{ background: "radial-gradient(circle, rgba(192,132,252,0.06) 0%, transparent 70%)", filter: "blur(40px)", borderRadius: "50%" }} />
 
       <div className="container mx-auto px-4 py-4 relative z-10">
         <motion.div
@@ -118,85 +141,91 @@ export function ContactSection() {
           className="mb-12"
         >
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-blue-500"></div>
-            <span className="text-blue-400 text-sm font-medium uppercase tracking-wider flex items-center gap-2">
-              <MessageSquare className="w-4 h-4" /> Mensagem
+            <div className="h-px w-12" style={{ background: "linear-gradient(90deg,transparent,#6366f1)" }} />
+            <span className="text-indigo-400 text-[11px] font-medium uppercase tracking-[0.2em] flex items-center gap-2"
+              style={{ fontFamily: "'DM Mono', monospace" }}>
+              <MessageSquare className="w-3.5 h-3.5" /> Mensagem
             </span>
-            <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-purple-500"></div>
+            <div className="h-px w-12" style={{ background: "linear-gradient(90deg,#8b5cf6,transparent)" }} />
           </div>
-
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-center bg-gradient-to-r from-blue-400 via-purple-500 to-blue-400 text-transparent bg-clip-text">
+          <h2
+            className="font-black leading-tight pb-1 text-center"
+            style={{
+              fontSize: "clamp(32px,5.5vw,48px)",
+              fontFamily: "'Syne', sans-serif",
+              background: "linear-gradient(135deg,#818cf8,#c084fc,#67e8f9)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
             Entre em Contato
           </h2>
-          <p className="text-base sm:text-lg text-center text-blue-200 mb-2 max-w-2xl mx-auto">
-            Tem um projeto em mente ou quer conversar sobre oportunidades? Entre em contato comigo!
+          <div className="w-20 h-[3px] mx-auto mt-4 rounded-full"
+            style={{ background: "linear-gradient(90deg,#6366f1,#8b5cf6)" }} />
+          <p className="text-center mt-4 max-w-xl mx-auto" style={{ color: "rgba(148,163,184,0.6)", fontSize: "clamp(13px,1.5vw,15px)" }}>
+            Tem um projeto em mente ou quer conversar sobre oportunidades? Entre em contato!
           </p>
         </motion.div>
 
-        <div className="flex flex-col md:flex-row gap-8 md:gap-12 max-w-6xl mx-auto">
+        <div className="flex flex-col md:flex-row gap-8 md:gap-10 max-w-5xl mx-auto">
+          {/* Form */}
           <motion.div
             className="w-full md:w-1/2"
             initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
+            whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
           >
-            <div className="bg-gradient-to-br from-blue-900/10 to-purple-900/10 backdrop-blur-sm border border-purple-900/30 rounded-2xl p-6 md:p-8 shadow-lg shadow-purple-900/5">
+            <div className="rounded-2xl p-6 md:p-8"
+              style={{
+                background: "rgba(255,255,255,0.02)",
+                border: "1px solid rgba(99,102,241,0.15)",
+                boxShadow: "0 0 40px rgba(99,102,241,0.05)",
+              }}
+            >
+              {/* Top bar */}
+              <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl"
+                style={{ background: "linear-gradient(90deg,#6366f1,#8b5cf6,transparent)" }} />
+
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
+                  style={{ background: "linear-gradient(135deg,#6366f1,#8b5cf6)" }}>
                   <Mail className="w-5 h-5 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold text-white">Envie uma mensagem</h3>
+                <h3 className="text-lg font-bold text-white" style={{ fontFamily: "'Syne', sans-serif" }}>
+                  Envie uma mensagem
+                </h3>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-blue-300 mb-1">
-                    Nome
-                  </label>
-                  <Input
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="Seu nome"
-                    required
-                    className="bg-blue-950/30 border border-purple-900/50 text-white placeholder:text-blue-300/50 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 rounded-lg"
-                  />
-                </div>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                {[
+                  { id: "name", label: "Nome", type: "text", placeholder: "Seu nome" },
+                  { id: "email", label: "Email", type: "email", placeholder: "seu.email@exemplo.com" },
+                  { id: "subject", label: "Assunto", type: "text", placeholder: "Assunto da mensagem" },
+                ].map((field) => (
+                  <div key={field.id}>
+                    <label htmlFor={field.id} className="block text-xs font-medium mb-1.5 tracking-wide"
+                      style={{ color: "#a5b4fc", fontFamily: "'DM Mono', monospace" }}>
+                      {field.label}
+                    </label>
+                    <Input
+                      id={field.id}
+                      name={field.id}
+                      type={field.type}
+                      value={formData[field.id as keyof typeof formData]}
+                      onChange={handleChange}
+                      placeholder={field.placeholder}
+                      required
+                      className={inputClass}
+                      style={inputStyle}
+                    />
+                  </div>
+                ))}
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-blue-300 mb-1">
-                    Email
-                  </label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="seu.email@exemplo.com"
-                    required
-                    className="bg-blue-950/30 border border-purple-900/50 text-white placeholder:text-blue-300/50 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 rounded-lg"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-blue-300 mb-1">
-                    Assunto
-                  </label>
-                  <Input
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    placeholder="Assunto da mensagem"
-                    required
-                    className="bg-blue-950/30 border border-purple-900/50 text-white placeholder:text-blue-300/50 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 rounded-lg"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-blue-300 mb-1">
+                  <label htmlFor="message" className="block text-xs font-medium mb-1.5 tracking-wide"
+                    style={{ color: "#a5b4fc", fontFamily: "'DM Mono', monospace" }}>
                     Mensagem
                   </label>
                   <Textarea
@@ -207,170 +236,139 @@ export function ContactSection() {
                     placeholder="Sua mensagem..."
                     rows={5}
                     required
-                    className="bg-blue-950/30 border border-purple-900/50 text-white placeholder:text-blue-300/50 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 rounded-lg"
+                    className={inputClass}
+                    style={inputStyle}
                   />
                 </div>
 
-                <Button
+                <button
                   type="submit"
                   disabled={formStatus === "submitting" || formStatus === "success"}
-                  className={`w-full relative overflow-hidden group rounded-xl cursor-pointer ${
-                    formStatus === "success"
-                      ? "bg-green-600 hover:bg-green-700"
+                  className="w-full rounded-xl py-3 font-semibold text-sm text-white transition-all duration-300 hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed"
+                  style={{
+                    background: formStatus === "success"
+                      ? "linear-gradient(135deg,#10b981,#059669)"
                       : formStatus === "error"
-                        ? "bg-red-600 hover:bg-red-700"
-                        : "bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
-                  }`}
+                      ? "linear-gradient(135deg,#ef4444,#dc2626)"
+                      : "linear-gradient(135deg,#6366f1,#8b5cf6)",
+                    boxShadow: "0 0 24px rgba(99,102,241,0.25)",
+                    fontFamily: "'Syne', sans-serif",
+                  }}
                 >
-                  <span className="flex items-center justify-center gap-2 py-1">
+                  <span className="flex items-center justify-center gap-2">
                     {formStatus === "submitting" ? (
                       <>
-                        <svg
-                          className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                        >
+                        <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                          <path
-                            className="opacity-75"
-                            fill="currentColor"
-                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                          />
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                         </svg>
                         Preparando e-mail...
                       </>
                     ) : formStatus === "success" ? (
-                      <>
-                        <CheckCircle className="w-4 h-4" /> E-mail aberto!
-                      </>
+                      <><CheckCircle className="w-4 h-4" /> E-mail aberto!</>
                     ) : formStatus === "error" ? (
-                      <>
-                        <AlertCircle className="w-4 h-4" /> Preencha todos os campos
-                      </>
+                      <><AlertCircle className="w-4 h-4" /> Preencha todos os campos</>
                     ) : (
-                      <>
-                        <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" /> Enviar Mensagem
-                      </>
+                      <><Send className="w-4 h-4" /> Enviar Mensagem</>
                     )}
                   </span>
-                  <div className="absolute inset-0 -z-10 bg-gradient-to-r from-blue-600/40 to-purple-600/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
-                </Button>
+                </button>
               </form>
             </div>
           </motion.div>
 
+          {/* Info */}
           <motion.div
-            className="w-full md:w-1/2 flex flex-col justify-between"
+            className="w-full md:w-1/2 flex flex-col"
             initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            viewport={{ once: true }}
           >
-            <div className="bg-gradient-to-br from-purple-900/10 to-blue-900/10 backdrop-blur-sm border border-purple-900/30 rounded-2xl p-6 md:p-8 shadow-lg shadow-purple-900/5 h-full flex flex-col">
+            <div className="rounded-2xl p-6 md:p-8 h-full flex flex-col"
+              style={{
+                background: "rgba(255,255,255,0.02)",
+                border: "1px solid rgba(99,102,241,0.15)",
+                boxShadow: "0 0 40px rgba(99,102,241,0.04)",
+              }}
+            >
               <div className="flex items-center gap-3 mb-8">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
+                  style={{ background: "linear-gradient(135deg,#8b5cf6,#6366f1)" }}>
                   <Phone className="w-5 h-5 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold text-white">Informações de Contato</h3>
+                <h3 className="text-lg font-bold text-white" style={{ fontFamily: "'Syne', sans-serif" }}>
+                  Informações de Contato
+                </h3>
               </div>
 
-              <div className="space-y-8 flex-grow">
-                <motion.div
-                  className="flex items-start gap-4 bg-blue-950/20 p-4 rounded-xl border border-blue-900/30 hover:border-blue-500/30 transition-colors"
-                  whileHover={{ y: -5, x: 0 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 10 }}
-                >
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center flex-shrink-0 shadow-md shadow-purple-900/20">
-                    <Mail className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-medium text-purple-300">Email</h4>
-                    <a
-                      href="mailto:guilhermeriosprog@gmail.com"
-                      className="text-blue-200 hover:text-purple-300 transition-colors"
-                    >
-                      guilhermeriosprog@gmail.com
-                    </a>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  className="flex items-start gap-4 bg-blue-950/20 p-4 rounded-xl border border-blue-900/30 hover:border-blue-500/30 transition-colors"
-                  whileHover={{ y: -5, x: 0 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 10 }}
-                >
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center flex-shrink-0 shadow-md shadow-purple-900/20">
-                    <Phone className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-medium text-purple-300">Telefone</h4>
-                    <a href="tel:+559984869491" className="text-blue-200 hover:text-purple-300 transition-colors">
-                      +55 (99) 8486-9491
-                    </a>
-                  </div>
-                </motion.div>
+              <div className="space-y-4 flex-grow">
+                {[
+                  { icon: <Mail className="w-5 h-5 text-white" />, label: "Email", value: "guilhermeriosprog@gmail.com", href: "mailto:guilhermeriosprog@gmail.com" },
+                  { icon: <Phone className="w-5 h-5 text-white" />, label: "Telefone", value: "+55 (99) 8486-9491", href: "tel:+559984869491" },
+                ].map((item) => (
+                  <motion.div
+                    key={item.label}
+                    className="flex items-start gap-4 p-4 rounded-xl transition-all duration-200"
+                    style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(99,102,241,0.12)" }}
+                    whileHover={{ y: -3, borderColor: "rgba(99,102,241,0.3)" }}
+                    transition={{ type: "spring", stiffness: 300, damping: 10 }}
+                  >
+                    <div className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0"
+                      style={{ background: "linear-gradient(135deg,#6366f1,#8b5cf6)", boxShadow: "0 0 14px rgba(99,102,241,0.3)" }}>
+                      {item.icon}
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-semibold mb-0.5" style={{ color: "#a5b4fc", fontFamily: "'DM Mono', monospace" }}>
+                        {item.label}
+                      </h4>
+                      <a href={item.href} className="text-sm transition-colors"
+                        style={{ color: "rgba(203,213,225,0.7)" }}
+                        onMouseEnter={(e) => (e.currentTarget.style.color = "#a5b4fc")}
+                        onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(203,213,225,0.7)")}>
+                        {item.value}
+                      </a>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
 
-              <div className="mt-8 pt-8 border-t border-purple-900/30">
-                <h4 className="text-lg font-medium text-white mb-4 flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-purple-400" /> Redes Sociais
+              <div className="mt-8 pt-8" style={{ borderTop: "1px solid rgba(99,102,241,0.15)" }}>
+                <h4 className="text-sm font-semibold mb-4 flex items-center gap-2 text-white"
+                  style={{ fontFamily: "'Syne', sans-serif" }}>
+                  <Sparkles className="w-4 h-4 text-indigo-400" /> Redes Sociais
                 </h4>
-                <div className="flex flex-wrap gap-4">
-                  <motion.a
-                    href="https://github.com/guilhermeprog3"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group relative"
-                    whileHover={{ y: -5, scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600/50 to-blue-600/50 rounded-full blur-md opacity-0 group-hover:opacity-70 transition-opacity"></div>
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-900/80 to-purple-900/80 border border-purple-900/50 flex items-center justify-center hover:border-purple-500/50 transition-colors relative z-10">
-                      <Github className="w-5 h-5 text-white" />
-                    </div>
-                  </motion.a>
-
-                  <motion.a
-                    href="https://www.linkedin.com/in/guilherme-s-rios-dev"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group relative"
-                    whileHover={{ y: -5, scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600/50 to-blue-600/50 rounded-full blur-md opacity-0 group-hover:opacity-70 transition-opacity"></div>
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-900/80 to-purple-900/80 border border-purple-900/50 flex items-center justify-center hover:border-purple-500/50 transition-colors relative z-10">
-                      <Linkedin className="w-5 h-5 text-white" />
-                    </div>
-                  </motion.a>
-
-                  <motion.a
-                    href="https://instagram.com/guilherme_rios_03"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group relative"
-                    whileHover={{ y: -5, scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600/50 to-blue-600/50 rounded-full blur-md opacity-0 group-hover:opacity-70 transition-opacity"></div>
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-900/80 to-purple-900/80 border border-purple-900/50 flex items-center justify-center hover:border-purple-500/50 transition-colors relative z-10">
-                      <Instagram className="w-5 h-5 text-white" />
-                    </div>
-                  </motion.a>
-
-                  <motion.a
-                    href="https://wa.me/5599984869491"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group relative"
-                    whileHover={{ y: -5, scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600/50 to-blue-600/50 rounded-full blur-md opacity-0 group-hover:opacity-70 transition-opacity"></div>
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-900/80 to-purple-900/80 border border-purple-900/50 flex items-center justify-center hover:border-purple-500/50 transition-colors relative z-10">
-                      <FaWhatsapp className="w-5 h-5 text-white" />
-                    </div>
-                  </motion.a>
+                <div className="flex flex-wrap gap-3">
+                  {socialLinks.map((s) => (
+                    <motion.a
+                      key={s.label}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group relative"
+                      whileHover={{ y: -4, scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-60 transition-opacity duration-300"
+                        style={{ background: "radial-gradient(circle, rgba(99,102,241,0.6), transparent)", filter: "blur(8px)" }} />
+                      <div className="w-12 h-12 rounded-full flex items-center justify-center relative z-10 transition-all duration-200"
+                        style={{
+                          background: "rgba(255,255,255,0.04)",
+                          border: "1px solid rgba(99,102,241,0.25)",
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.borderColor = "rgba(99,102,241,0.6)"
+                          e.currentTarget.style.background = "rgba(99,102,241,0.12)"
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.borderColor = "rgba(99,102,241,0.25)"
+                          e.currentTarget.style.background = "rgba(255,255,255,0.04)"
+                        }}
+                      >
+                        {s.icon}
+                      </div>
+                    </motion.a>
+                  ))}
                 </div>
               </div>
             </div>

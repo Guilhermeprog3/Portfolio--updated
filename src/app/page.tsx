@@ -3,6 +3,7 @@
 import { Header } from "@/componentes/header"
 import { HeroSection } from "@/componentes/hero-section"
 import { AboutSection } from "@/componentes/about-section"
+import { ExperienceSection } from "@/componentes/experience-section"
 import { SkillsSection } from "@/componentes/skills-section"
 import { TechStack } from "@/componentes/tech-stack"
 import { ProjectsSection } from "@/componentes/projects-section"
@@ -28,7 +29,8 @@ export default function Portfolio() {
       <main className="relative z-10">
         <HeroSection />
         <AboutSection />
-        <AcademicSection/>
+        <AcademicSection />
+        <ExperienceSection />
         <SkillsSection />
         <TechStack />
         <ProjectsSection />

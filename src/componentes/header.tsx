@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useMemo } from "react"
-import { Menu, X, ChevronDown, GraduationCap, Home, User, Code, Layers, FolderKanban, Mail } from "lucide-react"
+import { Menu, X, ChevronDown, GraduationCap, Home, User, Code, Layers, FolderKanban, Mail, Briefcase } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { motion, AnimatePresence } from "framer-motion"
@@ -18,6 +18,7 @@ export function Header() {
       { name: "Home", id: "home", icon: <Home className="w-4 h-4" /> },
       { name: "Sobre", id: "sobre", icon: <User className="w-4 h-4" /> },
       { name: "Formação", id: "formacao", icon: <GraduationCap className="w-4 h-4" /> },
+      { name: "Experiência", id: "experiencia", icon: <Briefcase className="w-4 h-4" /> },
       { name: "Habilidades", id: "habilidades", icon: <Code className="w-4 h-4" /> },
       { name: "Tecnologias", id: "tecnologias", icon: <Layers className="w-4 h-4" /> },
       { name: "Projetos", id: "projetos", icon: <FolderKanban className="w-4 h-4" /> },
@@ -29,7 +30,6 @@ export function Header() {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY
-
       const isScrolledDown = prevScrollPos < currentScrollPos
       const isScrolledUp = prevScrollPos > currentScrollPos
       const isAtTop = currentScrollPos < 10
@@ -41,17 +41,11 @@ export function Header() {
       }
 
       setPrevScrollPos(currentScrollPos)
-
-      if (currentScrollPos > 10) {
-        setScrolled(true)
-      } else {
-        setScrolled(false)
-      }
+      setScrolled(currentScrollPos > 10)
 
       for (const item of navItems) {
         const element = document.getElementById(item.id)
         if (!element) continue
-
         const rect = element.getBoundingClientRect()
         if (rect.top <= 100 && rect.bottom >= 100) {
           setActiveSection(item.id)
@@ -66,30 +60,18 @@ export function Header() {
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen)
-    if (!mobileMenuOpen) {
-      setVisible(true)
-    }
+    if (!mobileMenuOpen) setVisible(true)
   }
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id)
-    if (element) {
-      // Fecha o menu mobile
-      setMobileMenuOpen(false)
-
-      // Pequeno timeout para garantir que a animação de fechamento do menu não interfira
-      setTimeout(() => {
-        // Calcula a posição considerando o header fixo
-        const headerHeight = document.querySelector("header")?.clientHeight || 0
-        const elementPosition = element.getBoundingClientRect().top + window.scrollY
-        const offsetPosition = elementPosition - headerHeight - 20 // 20px de margem
-
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth",
-        })
-      }, 100) // Pequeno delay para garantir que o menu fechou
-    }
+    if (!element) return
+    setMobileMenuOpen(false)
+    setTimeout(() => {
+      const headerHeight = document.querySelector("header")?.clientHeight || 0
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY
+      window.scrollTo({ top: elementPosition - headerHeight - 20, behavior: "smooth" })
+    }, 100)
   }
 
   return (
@@ -116,18 +98,15 @@ export function Header() {
           </h1>
         </motion.div>
 
-        <nav className="hidden md:flex flex-grow justify-center items-center">
-          <div className="flex flex-wrap justify-center gap-x-1 lg:gap-x-2">
+        <nav className="hidden lg:flex flex-grow justify-center items-center">
+          <div className="flex flex-wrap justify-center gap-x-1">
             {navItems.map((item) => (
               <motion.a
                 key={item.id}
                 href={`#${item.id}`}
-                onClick={(e) => {
-                  e.preventDefault()
-                  scrollToSection(item.id)
-                }}
+                onClick={(e) => { e.preventDefault(); scrollToSection(item.id) }}
                 className={cn(
-                  "transition-all hover:text-purple-400 py-2 px-3 relative rounded-full group flex items-center gap-2",
+                  "transition-all hover:text-purple-400 py-1.5 px-3 relative rounded-full group flex items-center gap-1.5 text-sm",
                   activeSection === item.id
                     ? "text-white font-medium bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-purple-500/30"
                     : "text-blue-100 hover:bg-blue-900/20",
@@ -135,12 +114,7 @@ export function Header() {
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
-                <span
-                  className={cn(
-                    "transition-colors",
-                    activeSection === item.id ? "text-purple-400" : "text-blue-400 group-hover:text-purple-400",
-                  )}
-                >
+                <span className={cn("transition-colors", activeSection === item.id ? "text-purple-400" : "text-blue-400 group-hover:text-purple-400")}>
                   {item.icon}
                 </span>
                 <span>{item.name}</span>
@@ -151,12 +125,11 @@ export function Header() {
 
         <div className="flex items-center gap-3 flex-shrink-0">
           <motion.a
-            whileHover={{ scale: 1.05, backgroundColor: "rgba(30, 64, 175, 0.6)" }}
-            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            whileHover={{ scale: 1.05 }}
             href="https://guilhermeriosdevv1.vercel.app/"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-1.5 bg-blue-900/50 text-white rounded-full border border-blue-700/50 text-sm transition-all whitespace-nowrap flex items-center gap-1 shadow-sm shadow-blue-900/30"
+            className="px-4 py-1.5 bg-blue-900/50 text-white rounded-full border border-blue-700/50 text-sm transition-all whitespace-nowrap flex items-center gap-1 shadow-sm shadow-blue-900/30 hover:bg-blue-800/60"
           >
             <span>v1</span>
             <ChevronDown className="w-3 h-3 opacity-70" />
@@ -165,10 +138,7 @@ export function Header() {
           <Button
             variant="ghost"
             size="icon"
-            className={cn(
-              "md:hidden text-white transition-all",
-              mobileMenuOpen ? "bg-purple-900/50" : "hover:bg-purple-900/30",
-            )}
+            className={cn("lg:hidden text-white transition-all", mobileMenuOpen ? "bg-purple-900/50" : "hover:bg-purple-900/30")}
             onClick={toggleMobileMenu}
           >
             <AnimatePresence mode="wait" initial={false}>
@@ -193,30 +163,25 @@ export function Header() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="md:hidden overflow-hidden border-b border-purple-900/30 bg-gradient-to-b from-black/95 to-blue-950/95"
+            className="lg:hidden overflow-hidden border-b border-purple-900/30 bg-gradient-to-b from-black/95 to-blue-950/95"
           >
-            <div className="container mx-auto px-4 py-4 flex flex-col space-y-2">
+            <div className="container mx-auto px-4 py-4 flex flex-col space-y-1">
               {navItems.map((item, index) => (
                 <motion.a
                   key={item.id}
                   href={`#${item.id}`}
-                  onClick={(e) => {
-                    e.preventDefault()
-                    scrollToSection(item.id)
-                  }}
+                  onClick={(e) => { e.preventDefault(); scrollToSection(item.id) }}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.05 }}
+                  transition={{ delay: index * 0.04 }}
                   className={cn(
-                    "transition-colors hover:text-purple-400 py-3 px-4 flex items-center gap-3",
+                    "transition-colors hover:text-purple-400 py-3 px-4 flex items-center gap-3 rounded-lg",
                     activeSection === item.id
-                      ? "text-purple-400 font-medium bg-purple-900/20 rounded-lg border-l-4 border-purple-500"
+                      ? "text-purple-400 font-medium bg-purple-900/20 border-l-4 border-purple-500"
                       : "text-white border-l-4 border-transparent",
                   )}
                 >
-                  <span className={cn(activeSection === item.id ? "text-purple-400" : "text-blue-400")}>
-                    {item.icon}
-                  </span>
+                  <span className={cn(activeSection === item.id ? "text-purple-400" : "text-blue-400")}>{item.icon}</span>
                   {item.name}
                 </motion.a>
               ))}

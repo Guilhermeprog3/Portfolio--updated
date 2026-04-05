@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import {
   FileJson,
@@ -56,6 +56,55 @@ function useMediaQuery(query: string): boolean {
 
   return matches
 }
+
+// ── ÚNICA ADIÇÃO: StarField ──────────────────────────────────────────────────
+function StarField() {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+    let animId: number
+    const stars: { x: number; y: number; r: number; o: number; speed: number }[] = []
+    const resize = () => {
+      canvas.width = canvas.offsetWidth
+      canvas.height = canvas.offsetHeight
+      stars.length = 0
+      for (let i = 0; i < 130; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 1.2 + 0.2,
+          o: Math.random(),
+          speed: Math.random() * 0.004 + 0.001,
+        })
+      }
+    }
+    resize()
+    window.addEventListener("resize", resize)
+    let t = 0
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      t++
+      stars.forEach((s) => {
+        const opacity = 0.12 + 0.5 * Math.abs(Math.sin(t * s.speed + s.o * 10))
+        ctx.beginPath()
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(180,190,255,${opacity})`
+        ctx.fill()
+      })
+      animId = requestAnimationFrame(draw)
+    }
+    draw()
+    return () => {
+      cancelAnimationFrame(animId)
+      window.removeEventListener("resize", resize)
+    }
+  }, [])
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
+}
+// ─────────────────────────────────────────────────────────────────────────────
 
 export function SkillsSection() {
   const [activeSkill, setActiveSkill] = useState<string | null>(null)
@@ -261,7 +310,7 @@ export function SkillsSection() {
       color: "from-yellow-500 to-orange-600",
       icon: <Database className="w-5 h-5 sm:w-6 sm:h-6 text-yellow-400" />,
       level: 3,
-      description: "Plataforma de desenvolvimento com Realtime Database, Authentication e Hosting."
+      description: "Plataforma de desenvolvimento com Realtime Database, Authentication e Hosting.",
     },
     {
       name: "CORS",
@@ -317,21 +366,19 @@ export function SkillsSection() {
       </div>
     )
   }
-  const glowPositions = ["top-1/4 left-1/4", "bottom-1/4 right-1/4", "top-3/4 right-1/3", "bottom-1/3 left-1/3"]
 
   return (
-    <section id="habilidades" className="py-16 sm:py-20 md:py-24 relative overflow-hidden">
+    // ── MUDANÇAS: adicionado style={{ background: "#050816" }} e <StarField /> ──
+    <section id="habilidades" className="py-16 sm:py-20 md:py-24 relative overflow-hidden" style={{ background: "#050816" }}>
+      <StarField />
+
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
 
-      {glowPositions.map((position, index) => (
-        <div
-          key={index}
-          className={`absolute ${position} w-64 h-64 rounded-full blur-3xl opacity-20 ${
-            index % 2 === 0 ? "bg-blue-500" : "bg-purple-500"
-          }`}
-        ></div>
-      ))}
+      <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl"></div>
+      <div className="absolute top-3/4 right-1/3 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-1/3 left-1/3 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl"></div>
 
       <div className="container mx-auto px-4 py-4 relative z-10">
         <motion.div
